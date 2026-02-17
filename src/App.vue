@@ -1,5 +1,5 @@
 <template>
-	<div class="min-h-screen">
+	<div class="min-h-screen overflow-x-hidden">
 		<Navbar :name="profile.name" />
 
 		<main>
@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
 import Navbar from "./components/Navbar.vue";
 import Hero from "./components/Hero.vue";
 import AboutSection from "./components/AboutSection.vue";
@@ -35,9 +34,3 @@ if (import.meta.env.DEV) {
 	console.assert(Array.isArray(skills), "Skills should be an array");
 }
 </script>
-
-<style scoped>
-:deep(html) {
-	scroll-behavior: smooth;
-}
-</style>
