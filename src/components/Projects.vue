@@ -22,7 +22,7 @@
 				<article
 					v-for="(project, index) in projects"
 					:key="project.id || project.title"
-					class="glass rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 group"
+					class="glass rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 group flex flex-col"
 					:class="{
 						'opacity-0 translate-y-8': !isVisible,
 						'opacity-100 translate-y-0': isVisible,
@@ -31,11 +31,6 @@
 						transitionDelay: isVisible ? `${index * 100}ms` : '0ms',
 						transitionDuration: '700ms',
 					}"
-					:tabindex="project.link ? 0 : undefined"
-					:role="project.link ? 'button' : undefined"
-					@click="handleProjectClick(project)"
-					@keydown.enter="handleProjectClick(project)"
-					@keydown.space.prevent="handleProjectClick(project)"
 				>
 					<!-- Project Image/Banner -->
 					<div class="relative h-48 md:h-64 bg-linear-to-br from-primary-500/20 to-pink-500/20 overflow-hidden">
@@ -110,19 +105,49 @@
 					</div>
 
 					<!-- Project Info -->
-					<div class="p-5 md:p-6">
-						<h3
-							class="text-xl md:text-2xl font-display font-bold mb-2 md:mb-3 group-hover:text-primary-400 transition-colors line-clamp-2"
-						>
+					<div class="p-5 md:p-6 flex-1 flex flex-col">
+						<h3 class="text-xl md:text-2xl font-display font-bold mb-2 md:mb-3 group-hover:text-primary-400 transition-colors">
 							{{ project.title }}
 						</h3>
 
-						<p class="text-gray-400 text-sm md:text-base mb-4 leading-relaxed line-clamp-3">
-							{{ project.description }}
-						</p>
+						<!-- Description with Show More/Less -->
+						<div class="mb-4 flex-1">
+							<p
+								:ref="(el) => setDescriptionRef(el, index)"
+								class="text-gray-400 text-sm md:text-base leading-relaxed transition-all duration-300"
+								:class="expandedProjects[index] ? '' : 'line-clamp-3'"
+							>
+								{{ project.description }}
+							</p>
+
+							<!-- Show More/Less Button -->
+							<button
+								v-if="shouldShowButton[index]"
+								@click="toggleDescription(index)"
+								class="mt-2 text-primary-400 hover:text-primary-300 text-sm font-medium inline-flex items-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-dark-900 rounded-md px-2 py-1"
+								:aria-expanded="expandedProjects[index]"
+								:aria-label="expandedProjects[index] ? 'Show less description' : 'Show more description'"
+							>
+								{{ expandedProjects[index] ? "Show Less" : "Show More" }}
+								<svg
+									class="w-4 h-4 transition-transform duration-300"
+									:class="expandedProjects[index] ? 'rotate-180' : ''"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+								</svg>
+							</button>
+						</div>
 
 						<!-- Tech Stack -->
-						<div v-if="project.tech && project.tech.length" class="flex flex-wrap gap-2" role="list" aria-label="Technologies used">
+						<div
+							v-if="project.tech && project.tech.length"
+							class="flex flex-wrap gap-2 mt-auto"
+							role="list"
+							aria-label="Technologies used"
+						>
 							<span
 								v-for="tech in project.tech"
 								:key="tech"
@@ -145,8 +170,8 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useIntersectionObserver } from "../composables/useIntersectionObserver";
+import { computed, reactive, onMounted, nextTick, watch, onBeforeUnmount } from "vue";
+import { useIntersectionObserver } from "../composables/Useintersectionobserver";
 
 const props = defineProps({
 	projects: {
@@ -163,6 +188,51 @@ const { isVisible, targetRef } = useIntersectionObserver({
 	threshold: 0.1,
 	rootMargin: "0px 0px -100px 0px",
 });
+
+// Track expanded state for each project
+const expandedProjects = reactive({});
+
+// Track which projects should show the button
+const shouldShowButton = reactive({});
+
+// Store refs to description elements
+const descriptionRefs = {};
+
+// Set description ref
+const setDescriptionRef = (el, index) => {
+	if (el) {
+		descriptionRefs[index] = el;
+	}
+};
+
+// Check if element is actually truncated
+const checkIfTruncated = (element) => {
+	if (!element) return false;
+
+	// Check if scrollHeight is greater than clientHeight
+	// This means content is overflowing and being clamped
+	return element.scrollHeight > element.clientHeight;
+};
+
+// Check all descriptions after mount
+const checkAllDescriptions = async () => {
+	await nextTick();
+
+	// Small delay to ensure styles are applied
+	setTimeout(() => {
+		props.projects.forEach((project, index) => {
+			const element = descriptionRefs[index];
+			if (element) {
+				shouldShowButton[index] = checkIfTruncated(element);
+			}
+		});
+	}, 100);
+};
+
+// Toggle description expansion
+const toggleDescription = (index) => {
+	expandedProjects[index] = !expandedProjects[index];
+};
 
 // Project icon mapping
 const getProjectIcon = (category) => {
@@ -181,26 +251,47 @@ const getProjectIcon = (category) => {
 	return icons[category] || "🚀";
 };
 
-// Handle project click
-const handleProjectClick = (project) => {
-	if (project.link) {
-		window.open(project.link, "_blank", "noopener,noreferrer");
-	}
-};
-
 // Check if projects exist
 const hasProjects = computed(() => props.projects && props.projects.length > 0);
+
+// Debounce helper
+let resizeTimeout;
+const handleResize = () => {
+	clearTimeout(resizeTimeout);
+	resizeTimeout = setTimeout(checkAllDescriptions, 200);
+};
+
+// Check descriptions when component mounts
+onMounted(() => {
+	checkAllDescriptions();
+	window.addEventListener("resize", handleResize);
+});
+
+// Cleanup
+onBeforeUnmount(() => {
+	window.removeEventListener("resize", handleResize);
+	if (resizeTimeout) clearTimeout(resizeTimeout);
+});
+
+// Watch for visibility change to recheck
+watch(isVisible, (newValue) => {
+	if (newValue) {
+		checkAllDescriptions();
+	}
+});
+
+// Watch for projects change
+watch(
+	() => props.projects,
+	() => {
+		checkAllDescriptions();
+	},
+	{ deep: true },
+);
 </script>
 
 <style scoped>
 /* Text truncation utilities */
-.line-clamp-2 {
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-}
-
 .line-clamp-3 {
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
@@ -231,9 +322,14 @@ img {
 }
 
 /* Focus styles for accessibility */
-article:focus {
+article:focus-within {
 	outline: 2px solid rgb(var(--primary-rgb, 59, 130, 246));
 	outline-offset: 2px;
+}
+
+/* Rotate animation for chevron */
+.rotate-180 {
+	transform: rotate(180deg);
 }
 
 /* Reduced motion support */
@@ -245,6 +341,10 @@ article:focus {
 	}
 
 	img {
+		transform: none !important;
+	}
+
+	.rotate-180 {
 		transform: none !important;
 	}
 }

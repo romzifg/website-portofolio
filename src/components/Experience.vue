@@ -98,7 +98,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { useIntersectionObserver } from "../composables/useIntersectionObserver";
+import { useIntersectionObserver } from "../composables/Useintersectionobserver";
 
 const props = defineProps({
 	experiences: {

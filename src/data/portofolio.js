@@ -70,6 +70,12 @@ export const experiences = [
 
 export const projects = [
     {
+        title: 'AI Support Ticketing System',
+        description: 'Developed an AI-powered support ticketing platform that revolutionizes customer service operations. Leverages natural language processing to automatically categorize support requests, determine priority levels, perform sentiment analysis, and generate intelligent draft responses. This automation reduces manual triage time, ensures faster ticket resolution, and helps support teams focus on complex issues requiring human expertise.',
+        tech: ['Next', 'FastAPI', 'PostgreSQL',],
+        category: 'Web'
+    },
+    {
         title: 'Data Processing & Analytics Pipeline',
         description: 'Built a data processing pipeline to extract, clean, and transform structured data into an analytics-ready format.',
         tech: ['Python', 'Pandas', 'PostgreSQL', 'Airflow', 'Docker', 'WSL'],
