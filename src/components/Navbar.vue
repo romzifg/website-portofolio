@@ -1,26 +1,26 @@
 <template>
 	<nav class="fixed top-0 w-full z-50 transition-all duration-300" :class="scrolled ? 'glass shadow-lg' : ''">
-		<div class="max-w-7xl mx-auto px-6 lg:px-8">
-			<div class="flex justify-between items-center h-20">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between items-center h-16 sm:h-20">
 				<!-- Logo -->
-				<a href="#" class="text-2xl font-bold text-gradient font-display" @click.prevent="scrollToTop">
+				<a href="#" class="text-xl sm:text-2xl font-bold text-gradient font-display truncate max-w-[60%]" @click.prevent="scrollToTop">
 					{{ name }}
 				</a>
 
 				<!-- Desktop Menu -->
-				<div class="hidden md:flex items-center gap-8">
+				<div class="hidden md:flex items-center gap-6 lg:gap-8">
 					<a
 						v-for="link in links"
 						:key="link.name"
 						:href="link.href"
-						class="nav-link text-gray-300 hover:text-primary-500 transition-colors font-medium"
+						class="nav-link text-gray-300 hover:text-primary-500 transition-colors font-medium text-sm lg:text-base"
 						@click.prevent="scrollToSection(link.href)"
 					>
 						{{ link.name }}
 					</a>
 					<a
 						href="#contact"
-						class="btn-gradient px-6 py-2.5 rounded-full font-semibold hover:shadow-lg transition-all text-white"
+						class="btn-gradient px-4 lg:px-6 py-2 lg:py-2.5 rounded-full font-semibold hover:shadow-lg transition-all text-white text-sm lg:text-base whitespace-nowrap"
 						@click.prevent="scrollToSection('#contact')"
 					>
 						Contact
@@ -30,9 +30,9 @@
 				<!-- Mobile Menu Button -->
 				<button
 					@click="toggleMobileMenu"
-					class="md:hidden text-gray-300 hover:text-primary-500 transition-colors p-2"
+					class="md:hidden text-gray-300 hover:text-primary-500 transition-colors p-2 rounded-lg hover:bg-white/5 shrink-0"
 					:aria-label="mobileMenuOpen ? 'Close menu' : 'Open menu'"
-					aria-expanded="mobileMenuOpen"
+					:aria-expanded="mobileMenuOpen"
 				>
 					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -40,29 +40,34 @@
 					</svg>
 				</button>
 			</div>
+		</div>
 
-			<!-- Mobile Menu -->
-			<Transition name="slide">
-				<div v-if="mobileMenuOpen" class="md:hidden pb-6 space-y-2">
+		<!-- Mobile Menu — diletakkan di luar container agar full-width -->
+		<!-- Background solid agar tidak tembus ke konten di bawah -->
+		<Transition name="slide">
+			<div v-if="mobileMenuOpen" class="md:hidden mobile-menu-bg border-t border-white/10">
+				<div class="max-w-7xl mx-auto px-4 py-3 space-y-1">
 					<a
 						v-for="link in links"
 						:key="link.name"
 						:href="link.href"
 						@click.prevent="handleMobileClick(link.href)"
-						class="mobile-link block px-4 py-3 text-gray-300 rounded-lg transition-colors hover:text-primary-500 hover:bg-white/5"
+						class="flex items-center px-4 py-3 text-gray-300 rounded-xl transition-colors hover:text-primary-500 hover:bg-white/5 font-medium text-sm"
 					>
 						{{ link.name }}
 					</a>
-					<a
-						href="#contact"
-						@click.prevent="handleMobileClick('#contact')"
-						class="btn-gradient block px-4 py-3 rounded-lg font-semibold text-center text-white"
-					>
-						Contact
-					</a>
+					<div class="pt-2 pb-1">
+						<a
+							href="#contact"
+							@click.prevent="handleMobileClick('#contact')"
+							class="btn-gradient block px-4 py-3 rounded-xl font-semibold text-center text-white text-sm"
+						>
+							Contact
+						</a>
+					</div>
 				</div>
-			</Transition>
-		</div>
+			</div>
+		</Transition>
 	</nav>
 </template>
 
@@ -87,51 +92,36 @@ const links = [
 	{ name: "Projects", href: "#projects" },
 ];
 
-// Smooth scroll function
 const scrollToSection = (href) => {
 	const element = document.querySelector(href);
 	if (element) {
-		element.scrollIntoView({
-			behavior: "smooth",
-			block: "start",
-		});
+		element.scrollIntoView({ behavior: "smooth", block: "start" });
 	}
 };
 
 const scrollToTop = () => {
-	window.scrollTo({
-		top: 0,
-		behavior: "smooth",
-	});
+	window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-// Handle scroll event with throttling
 let scrollTimeout;
 const handleScroll = () => {
 	if (scrollTimeout) return;
-
 	scrollTimeout = setTimeout(() => {
 		scrolled.value = window.scrollY > 50;
 		scrollTimeout = null;
 	}, 100);
 };
 
-// Mobile menu handlers
 const toggleMobileMenu = () => {
 	mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 
 const handleMobileClick = (href) => {
 	mobileMenuOpen.value = false;
-	// Small delay to allow menu close animation
 	setTimeout(() => scrollToSection(href), 300);
 };
 
-// Lifecycle hooks
-onMounted(() => {
-	window.addEventListener("scroll", handleScroll, { passive: true });
-});
-
+onMounted(() => window.addEventListener("scroll", handleScroll, { passive: true }));
 onUnmounted(() => {
 	window.removeEventListener("scroll", handleScroll);
 	if (scrollTimeout) clearTimeout(scrollTimeout);
@@ -139,12 +129,19 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Font display utility */
 .font-display {
 	font-family: var(--font-display);
 }
 
-/* Gradient button */
+/*
+ * Background solid untuk mobile menu.
+ * Tidak pakai glass/transparan agar tidak tembus ke konten Hero di belakangnya.
+ */
+.mobile-menu-bg {
+	background-color: #0a0e1a;
+	background-color: var(--color-dark-900, #0a0e1a);
+}
+
 .btn-gradient {
 	background: linear-gradient(to right, var(--color-primary-500), var(--color-accent-500));
 	box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
@@ -155,7 +152,6 @@ onUnmounted(() => {
 	transform: translateY(-2px);
 }
 
-/* Navigation link active state */
 .nav-link {
 	position: relative;
 }
@@ -175,19 +171,14 @@ onUnmounted(() => {
 	width: 100%;
 }
 
-/* Transitions */
 .slide-enter-active,
 .slide-leave-active {
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.slide-enter-from {
-	opacity: 0;
-	transform: translateY(-10px);
-}
-
+.slide-enter-from,
 .slide-leave-to {
 	opacity: 0;
-	transform: translateY(-10px);
+	transform: translateY(-8px);
 }
 </style>

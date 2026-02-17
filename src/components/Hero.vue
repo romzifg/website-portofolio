@@ -1,35 +1,40 @@
 <template>
-	<section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+	<section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 sm:pt-20">
 		<!-- Animated Background -->
 		<div class="absolute inset-0 overflow-hidden pointer-events-none">
-			<div class="absolute top-1/4 -left-40 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-float"></div>
-			<div class="absolute bottom-1/4 -right-40 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-float animation-delay-2"></div>
+			<div class="absolute top-1/4 -left-20 sm:-left-40 w-64 sm:w-96 h-64 sm:h-96 bg-primary-500/20 rounded-full blur-3xl animate-float"></div>
+			<div
+				class="absolute bottom-1/4 -right-20 sm:-right-40 w-64 sm:w-96 h-64 sm:h-96 bg-pink-500/20 rounded-full blur-3xl animate-float animation-delay-2"
+			></div>
 		</div>
 
-		<div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-			<div class="grid lg:grid-cols-2 gap-12 items-center">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12 sm:py-0">
+			<div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 				<!-- Content -->
-				<div class="space-y-6 animate-slide-up">
-					<div class="inline-block px-4 py-2 glass rounded-full text-sm text-primary-400 mb-2">👋 Welcome to my portfolio</div>
-					<h1 class="text-5xl lg:text-7xl font-display font-bold leading-tight">
+				<div class="space-y-5 sm:space-y-6 animate-slide-up text-center lg:text-left">
+					<div class="inline-block px-4 py-2 glass rounded-full text-xs sm:text-sm text-primary-400">👋 Welcome to my portfolio</div>
+
+					<h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-bold leading-tight">
 						Hi, I'm <span class="text-gradient">{{ name }}</span>
 					</h1>
-					<p class="text-2xl lg:text-3xl text-gray-400 font-display italic">
+
+					<p class="text-xl sm:text-2xl lg:text-3xl text-gray-400 font-display italic">
 						{{ title }}
 					</p>
-					<p class="text-lg text-gray-400 leading-relaxed max-w-xl">
+
+					<p class="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
 						{{ bio }}
 					</p>
 
 					<!-- CTA Buttons -->
-					<div class="flex flex-wrap gap-4 pt-4">
+					<div class="flex flex-col xs:flex-row flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
 						<a
 							href="#projects"
-							class="px-8 py-4 bg-linear-to-r from-primary-500 to-pink-500 rounded-full font-semibold hover:shadow-lg hover:shadow-primary-500/50 transition-all inline-flex items-center gap-2 group"
+							class="px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-r from-primary-500 to-pink-500 rounded-full font-semibold hover:shadow-lg hover:shadow-primary-500/50 transition-all inline-flex items-center justify-center gap-2 group text-sm sm:text-base"
 						>
 							View My Work
 							<svg
-								class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+								class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -40,14 +45,14 @@
 						</a>
 						<a
 							href="#contact"
-							class="px-8 py-4 glass rounded-full font-semibold hover:bg-white/10 transition-all inline-flex items-center gap-2"
+							class="px-6 sm:px-8 py-3 sm:py-4 glass rounded-full font-semibold hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2 text-sm sm:text-base"
 						>
 							Get in Touch
 						</a>
 					</div>
 
 					<!-- Social Links -->
-					<div class="flex gap-4 pt-4" role="list">
+					<div class="flex gap-3 sm:gap-4 pt-2 justify-center lg:justify-start" role="list">
 						<a
 							v-for="social in socials"
 							:key="social.name"
@@ -55,12 +60,12 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							:aria-label="`Visit my ${social.name} profile`"
-							class="w-12 h-12 glass rounded-full flex items-center justify-center hover:bg-primary-500/20 hover:scale-110 transition-all group"
+							class="w-10 h-10 sm:w-12 sm:h-12 glass rounded-full flex items-center justify-center hover:bg-primary-500/20 hover:scale-110 transition-all group"
 						>
 							<!-- GitHub Icon -->
 							<svg
 								v-if="social.icon === 'github'"
-								class="w-5 h-5 group-hover:scale-110 transition-transform"
+								class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
 								fill="currentColor"
 								viewBox="0 0 24 24"
 								aria-hidden="true"
@@ -69,11 +74,10 @@
 									d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
 								/>
 							</svg>
-
 							<!-- LinkedIn Icon -->
 							<svg
 								v-else-if="social.icon === 'linkedin'"
-								class="w-5 h-5 group-hover:scale-110 transition-transform"
+								class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
 								fill="currentColor"
 								viewBox="0 0 24 24"
 								aria-hidden="true"
@@ -82,24 +86,22 @@
 									d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
 								/>
 							</svg>
-
 							<!-- Threads Icon -->
 							<svg
 								v-else-if="social.icon === 'threads'"
-								class="w-5 h-5 group-hover:scale-110 transition-transform"
+								class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
 								fill="currentColor"
 								viewBox="0 0 24 24"
 								aria-hidden="true"
 							>
 								<path
-									d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.704-1.021 0-1.923-.28-2.68-.833a4.165 4.165 0 01-1.572-2.166 7.21 7.21 0 01-.41-2.402c0-1.405.346-2.508 1.03-3.28.687-.774 1.612-1.166 2.75-1.166 1.108 0 2.003.382 2.66 1.135.377.431.656.953.83 1.552.173-.577.462-1.073.862-1.476a3.37 3.37 0 011.558-.868c-1.064-2.076-2.848-3.149-5.3-3.149-1.852 0-3.295.593-4.29 1.762-.997 1.168-1.496 2.847-1.496 5.004 0 2.157.5 3.835 1.496 5.004.996 1.169 2.438 1.762 4.29 1.762 1.818 0 3.352-.555 4.561-1.649 1.212-1.094 1.818-2.533 1.818-4.283v-.063c0-.085 0-.17.004-.254.87.454 1.513 1.074 1.913 1.847.687 1.329.732 3.096-.366 5.26-1.302 2.572-4.261 3.864-9.076 3.892zm1.065-10.867c-.13-.693-.428-1.245-.889-1.655-.461-.41-1.033-.615-1.714-.615-.71 0-1.29.246-1.734.738-.444.492-.666 1.19-.666 2.095 0 .904.222 1.603.666 2.095.444.492 1.024.738 1.734.738.681 0 1.253-.205 1.714-.615.461-.41.759-.962.889-1.655.13.693.428 1.245.889 1.655.461.41 1.033.615 1.714.615.71 0 1.29-.246 1.734-.738.444-.492.666-1.19.666-2.095 0-.904-.222-1.603-.666-2.095-.444-.492-1.024-.738-1.734-.738-.681 0-1.253.205-1.714.615-.461.41-.759.962-.889 1.655z"
+									d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.704-1.021 0-1.923-.28-2.68-.833a4.165 4.165 0 01-1.572-2.166 7.21 7.21 0 01-.41-2.402c0-1.405.346-2.508 1.03-3.28.687-.774 1.612-1.166 2.75-1.166 1.108 0 2.003.382 2.66 1.135.377.431.656.953.83 1.552.173-.577.462-1.073.862-1.476a3.37 3.37 0 011.558-.868c-1.064-2.076-2.848-3.149-5.3-3.149-1.852 0-3.295.593-4.29 1.762-.997 1.168-1.496 2.847-1.496 5.004 0 2.157.5 3.835 1.496 5.004.996 1.169 2.438 1.762 4.29 1.762 1.818 0 3.352-.555 4.561-1.649 1.212-1.094 1.818-2.533 1.818-4.283v-.063c0-.085 0-.17.004-.254.87.454 1.513 1.074 1.913 1.847.687 1.329.732 3.096-.366 5.26-1.302 2.572-4.261 3.864-9.076 3.892zm1.065-10.867c-.13-.693-.428-1.245-.889-1.655-.461-.41-1.033-.615-1.714-.615-.71 0-1.29.246-1.734.738-.444.492-.666 1.19-.666 2.095 0 .904.222 1.603.666 2.095.444.492 1.024.738 1.734.738.681 0 1.253-.205 1.714-.615.461-.41.759-.962.889-1.655z"
 								/>
 							</svg>
-
 							<!-- Instagram Icon -->
 							<svg
 								v-else-if="social.icon === 'instagram'"
-								class="w-5 h-5 group-hover:scale-110 transition-transform"
+								class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
 								fill="currentColor"
 								viewBox="0 0 24 24"
 								aria-hidden="true"
@@ -112,30 +114,29 @@
 					</div>
 				</div>
 
-				<!-- Visual Element -->
+				<!-- Visual Element - hidden on mobile, shown on lg+ -->
 				<div class="hidden lg:flex justify-center items-center animate-fade-in animation-delay-3" aria-hidden="true">
 					<div class="relative">
-						<div class="w-96 h-96 glass rounded-3xl flex items-center justify-center glow animate-float">
-							<div class="text-9xl" role="img" aria-label="Computer emoji">💻</div>
-						</div>
-						<!-- Floating Icons -->
-						<div
-							class="absolute -top-10 -right-10 w-20 h-20 glass rounded-2xl flex items-center justify-center animate-float animation-delay-1"
-						>
-							<div class="text-3xl" role="img" aria-label="Lightning emoji">⚡</div>
+						<div class="w-80 xl:w-96 h-80 xl:h-96 glass rounded-3xl flex items-center justify-center glow animate-float">
+							<div class="text-8xl xl:text-9xl" role="img" aria-label="Computer emoji">💻</div>
 						</div>
 						<div
-							class="absolute -bottom-10 -left-10 w-20 h-20 glass rounded-2xl flex items-center justify-center animate-float animation-delay-2"
+							class="absolute -top-8 xl:-top-10 -right-8 xl:-right-10 w-16 xl:w-20 h-16 xl:h-20 glass rounded-2xl flex items-center justify-center animate-float animation-delay-1"
 						>
-							<div class="text-3xl" role="img" aria-label="Rocket emoji">🚀</div>
+							<div class="text-2xl xl:text-3xl" role="img" aria-label="Lightning emoji">⚡</div>
+						</div>
+						<div
+							class="absolute -bottom-8 xl:-bottom-10 -left-8 xl:-left-10 w-16 xl:w-20 h-16 xl:h-20 glass rounded-2xl flex items-center justify-center animate-float animation-delay-2"
+						>
+							<div class="text-2xl xl:text-3xl" role="img" aria-label="Rocket emoji">🚀</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<!-- Scroll Indicator -->
-			<div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce" aria-hidden="true">
-				<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce" aria-hidden="true">
+				<svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
 				</svg>
 			</div>
@@ -145,43 +146,28 @@
 
 <script setup>
 const props = defineProps({
-	name: {
-		type: String,
-		required: true,
-	},
-	title: {
-		type: String,
-		required: true,
-	},
-	bio: {
-		type: String,
-		required: true,
-	},
+	name: { type: String, required: true },
+	title: { type: String, required: true },
+	bio: { type: String, required: true },
 	socials: {
 		type: Array,
 		default: () => [],
-		validator: (value) => {
-			return value.every((item) => item.name && item.url && item.icon);
-		},
+		validator: (value) => value.every((item) => item.name && item.url && item.icon),
 	},
 });
 </script>
 
 <style scoped>
-/* Animation delay utilities */
 .animation-delay-1 {
 	animation-delay: 1s;
 }
-
 .animation-delay-2 {
 	animation-delay: 2s;
 }
-
 .animation-delay-3 {
 	animation-delay: 0.3s;
 }
 
-/* Ensure animations are defined in your global CSS */
 @keyframes float {
 	0%,
 	100% {
@@ -215,11 +201,9 @@ const props = defineProps({
 .animate-float {
 	animation: float 6s ease-in-out infinite;
 }
-
 .animate-slide-up {
 	animation: slide-up 0.8s ease-out;
 }
-
 .animate-fade-in {
 	animation: fade-in 1s ease-out;
 }
