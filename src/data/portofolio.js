@@ -1,7 +1,7 @@
 export const profile = {
     name: 'Romzi Farhan Ghozi',
     title: 'Software Engineer | Full Stack Developer',
-    bio: 'Crafting elegant solutions through code. Specialized in building scalable web and mobile applications.',
+    bio: 'A mathematician turned software engineer — I build backend systems and find myself most at home when the problem involves data.',
     email: 'romzifarhan29@gmail.com',
     phone: '+62 8956-0214-4608',
     location: 'Depok, Indonesia',
@@ -12,20 +12,34 @@ export const profile = {
     ]
 }
 
-export const stats = [
-    { value: '4+', label: 'Years' },
-    { value: '6+', label: 'Projects' },
-    { value: '15+', label: 'Technologies' },
+export const bio = "A mathematician turned software engineer. Four years building web and mobile apps taught me that the most interesting problems usually live in the backend — where the data is messy, the queries are slow, and the architecture decisions actually matter."
+
+export const personalCards = [
+    {
+        icon: '⚙️',
+        label: 'Day-to-day stack',
+        value: 'React, Express.js, PostgreSQL'
+    },
+    {
+        icon: '🚀',
+        label: 'Projects shipped',
+        value: '7+ web & mobile apps'
+    },
+    {
+        icon: '🧠',
+        label: 'Background',
+        value: 'Mathematics — it shows in how I approach problems'
+    },
 ]
 
 export const skills = [
     {
         category: 'Languages',
-        items: ['JavaScript', 'TypeScript', 'PHP', 'Python', 'Golang', 'Dart']
+        items: ['JavaScript', 'TypeScript', 'PHP', 'Python']
     },
     {
         category: 'Frontend',
-        items: ['React', 'Vue.js', 'Flutter', 'Tailwind CSS']
+        items: ['React', 'Flutter', 'Tailwind CSS']
     },
     {
         category: 'Backend',
@@ -37,11 +51,15 @@ export const skills = [
     },
     {
         category: 'DevOps',
-        items: ['Docker', 'Git', 'CI/CD', 'Linux']
+        items: ['Docker', 'Git', 'Linux']
     },
     {
         category: 'Data',
-        items: ['Numpy', 'Pandas', 'Scikit-learn', 'Airflow']
+        items: ['Numpy', 'Pandas', 'Airflow']
+    },
+    {
+        category: 'Also worked with',
+        items: ['Golang', 'Dart', 'Vue.js', 'Scikit-learn']
     }
 ]
 
@@ -50,65 +68,84 @@ export const experiences = [
         title: 'Full Stack Developer',
         company: 'PT Sentral Mitra Informatika',
         period: 'Oct 2021 - Present',
-        description: 'Experienced software engineer specializing in modernizing legacy systems into scalable RESTful architectures using React.js and Express.js. Skilled in building and optimizing backend services, designing efficient relational database schemas, and writing complex SQL queries to support analytics and business reporting. Strong focus on performance optimization, maintainability, and cross-functional collaboration to deliver reliable, data-driven solutions that support operational and strategic decision-making.',
-        tech: ['Laravel', 'React', 'Next', 'Flutter', 'FastAPI', 'Express', 'MySQL', 'PostgreSQL', 'Redis', 'Docker', 'Git']
+        logo: '/src/assets/smi-logo.png',
+        description: "Joined to help modernize a legacy monolith — ended up owning the backend migration to RESTful services, redesigning database schemas, and writing the SQL that now powers the company's operational reports. Day-to-day is a mix of React, Express, and keeping things from breaking in production.",
+        tech: ['Laravel', 'React', 'Next', 'Flutter', 'FastAPI', 'Express', 'MySQL', 'PostgreSQL', 'Redis', 'Docker', 'Git'],
+        achievements: [
+            "Migrated a legacy CodeIgniter internal tool to a modern React + Express stack, improving maintainability and UI consistency across the system.",
+            "Delivered multiple web and mobile applications for client needs, covering full cycle from requirement to deployment,",
+            "Handled ongoing development and maintenance of internal projects, including bug fixes, feature additions, and codebase improvements.",
+        ]
     },
     {
         title: 'Frontend Developer',
         company: 'Project',
         period: 'Jun 2021 - Jul 2021',
-        description: 'Frontend-focused engineer with experience developing and maintaining responsive web applications using Next.js and React. Skilled in building reusable UI components, optimizing application performance, and delivering consistent, high-quality user experiences across devices. Experienced in integrating frontend systems with backend services through RESTful APIs to ensure seamless data flow and application reliability.',
-        tech: ['React', 'Next.js', 'Material-UI']
+        description: "Short-term project building a responsive web app with Next.js. Mostly component work and wiring up REST APIs, but it's where I got serious about how frontend and backend need to agree on data shape early",
+        tech: ['React', 'Next.js', 'Material-UI'],
+        achievements: [
+            'Built reusable component library with React and Material-UI.',
+            'Integrated frontend with REST APIs, reducing data fetch errors by standardizing response handling.',
+        ],
     },
     {
         title: 'Mathematical Computing Laboratory Assistant ',
         company: 'Bandung Islamic University (UNISBA)',
         period: '2019 - 2020',
-        description: 'Assisted in delivering practical sessions for mathematical computing courses, including numerical methods, linear algebra, and introductory programming. Guided students in applying mathematical concepts through programming and computational tools, while supporting lecturers in preparing lab materials, assignments, and evaluations to ensure effective learning outcomes.',
+        logo: '/src/assets/unisba-logo.png',
+        description: "Taught practical sessions for numerical methods and linear algebra to undergrad students. Probably where I learned that if you can't explain something simply, you don't understand it well enough yet.",
+        achievements: [
+            'Preparing laboratory materials and assignments for mathematical computing courses.',
+        ],
     }
 ]
 
 export const projects = [
     {
-        title: 'AI Support Ticketing System',
-        description: 'Developed an AI-powered support ticketing platform that revolutionizes customer service operations. Leverages natural language processing to automatically categorize support requests, determine priority levels, perform sentiment analysis, and generate intelligent draft responses. This automation reduces manual triage time, ensures faster ticket resolution, and helps support teams focus on complex issues requiring human expertise.',
-        tech: ['Next', 'FastAPI', 'PostgreSQL',],
-        category: 'Web'
+        title: "AI Support Ticketing System",
+        description: "Built a ticketing platform that uses NLP to auto-categorize requests, flag priority, and draft initial responses — so support teams spend less time triaging and more time actually solving problems.",
+        tech: ["Next", "FastAPI", "PostgreSQL"],
+        category: "Web",
+        image: "/src/assets/ai-powered.png"
     },
     {
-        title: 'Data Processing & Analytics Pipeline',
-        description: 'Built a data processing pipeline to extract, clean, and transform structured data into an analytics-ready format.',
-        tech: ['Python', 'Pandas', 'PostgreSQL', 'Airflow', 'Docker', 'WSL'],
-        category: 'Data'
+        title: "Data Processing & Analytics Pipeline",
+        description: "Personal project: a pipeline that pulls raw structured data, cleans it, and outputs something an analyst can actually use. Built with Airflow for scheduling and Docker to keep it portable.",
+        tech: ["Python", "Pandas", "PostgreSQL", "Airflow", "Docker", "WSL"],
+        category: "Data"
     },
     {
-        title: 'Technician Ticketing Application ',
-        description: 'Developed a web and mobile-based ticketing system to manage field technician tasks and equipment tracking. Key features include task assignment, real- time status updates, equipment monitoring, and centralized reporting to improve operational efficiency and response time.',
-        tech: ['React', 'Express.js', 'Flutter', 'MySQL'],
-        category: 'Web/Mobile'
+        title: "Technician Ticketing Application",
+        description: "Internal tool for managing field technician jobs — task assignment, real-time status, equipment tracking, all in one place. Built both the web dashboard and the mobile app the technicians use on-site.",
+        tech: ["React", "Express.js", "Flutter", "MySQL"],
+        category: "Web/Mobile",
+        image: "/src/assets/technician-ticket.png"
     },
     {
-        title: 'Document Review Application ',
-        description: 'Built an internal web application to streamline document review and approval workflows. Implemented role- based access control, multi - step approvals, and status tracking to ensure process faster decision - making.',
-        tech: ['React', 'Express.js', 'MySQL'],
-        category: 'Web'
+        title: "Document Review Application",
+        description: "Replaced an email-based approval process with a proper web app — role-based access, multi-step workflows, and a clear audit trail. Less back-and-forth, fewer things slipping through the cracks.",
+        tech: ["React", "Express.js", "MySQL"],
+        category: "Web",
+        image: "/src/assets/doc-review.png"
     },
     {
-        title: 'Visitor Application',
-        description: 'Created a mobile application for guest registration and visit management.Features include data logging, and visit history tracking to enhance security and administrative efficiency.',
-        tech: ['Flutter', 'Express.js', 'MySQL'],
-        category: 'Mobile'
+        title: "Visitor Application",
+        description: "Mobile app for guest check-in and visit history at the office. Simple scope, but it replaced a paper logbook — which apparently nobody enjoyed maintaining.",
+        tech: ["Flutter", "Express.js", "MySQL"],
+        category: "Mobile"
     },
     {
-        title: 'Product Approval Application',
-        description: 'Developed a web-based product submission and approval system to manage product lifecycle processes. Supports structured submissions, and status monitoring, enabling better coordination between teams and reduced processing time.',
-        tech: ['Next.js', 'Express.js', 'MySQL'],
-        category: 'Web'
+        title: "Product Approval Application",
+        description: "Web app to manage product submission and approval cycles between teams. Structured the workflow so nothing gets stuck waiting on someone who doesn't know it's their turn.",
+        tech: ["Next.js", "Express.js", "MySQL"],
+        category: "Web",
+        image: "/src/assets/reg-product.png"
     },
     {
-        title: 'Field Monitoring Application',
-        description: 'Designed and implemented a field monitoring web application to track and analyze product performance. Provides data visualization, monitoring reports, and performance insights to support data- driven decision - making in field operations.',
-        tech: ['React', 'Laravel', 'PostgreSQL'],
-        category: 'Web'
-    },
+        title: "Field Monitoring Application",
+        description: "Dashboard for tracking product performance in the field — data viz, monitoring reports, and trend analysis. Built so non-technical teams could actually read and use the data themselves.",
+        tech: ["React", "Laravel", "PostgreSQL"],
+        category: "Web",
+        image: "/src/assets/field-monitoring.png"
+    }
 ]

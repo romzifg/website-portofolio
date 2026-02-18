@@ -36,45 +36,78 @@
 				>
 					<!-- Timeline Dot -->
 					<div
-						class="absolute -left-2 top-0 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-primary-500 rounded-full group-hover:scale-125 transition-transform glow"
+						class="absolute -left-2 top-5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-primary-500 rounded-full group-hover:scale-125 transition-transform glow"
 						aria-hidden="true"
 					></div>
 
 					<!-- Content Card -->
 					<div class="glass p-4 sm:p-5 md:p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
-						<!-- Header -->
-						<div class="flex flex-col gap-2 sm:gap-3 mb-3 sm:mb-4">
-							<!-- Title + Company -->
-							<div class="flex flex-col xs:flex-row xs:items-start xs:justify-between gap-2">
-								<div class="flex-1 min-w-0">
-									<h3 class="text-lg sm:text-xl md:text-2xl font-display font-bold text-gray-100 mb-0.5 sm:mb-1 leading-tight">
-										{{ exp.title }}
-									</h3>
-									<p class="text-primary-400 font-semibold text-sm sm:text-base">
-										{{ exp.company }}
-									</p>
+						<!-- Header: Logo + Title + Period -->
+						<div class="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
+							<!-- Company Logo / Inisial -->
+							<div class="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden glass flex items-center justify-center">
+								<img v-if="exp.logo" :src="exp.logo" :alt="`${exp.company} logo`" class="w-full h-full object-contain p-1" />
+								<!-- Fallback: inisial perusahaan -->
+								<span v-else class="text-sm sm:text-base font-bold text-primary-400">
+									{{ getInitials(exp.company) }}
+								</span>
+							</div>
+
+							<!-- Title, Company, Period -->
+							<div class="flex-1 min-w-0">
+								<div class="flex flex-col xs:flex-row xs:items-start xs:justify-between gap-1.5 sm:gap-2">
+									<div class="flex-1 min-w-0">
+										<h3 class="text-base sm:text-xl md:text-2xl font-display font-bold text-gray-100 leading-tight">
+											{{ exp.title }}
+										</h3>
+										<p class="text-primary-400 font-semibold text-xs sm:text-sm mt-0.5">
+											{{ exp.company }}
+										</p>
+									</div>
+									<!-- Period badge -->
+									<time
+										class="self-start inline-flex px-2.5 sm:px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-xs font-medium whitespace-nowrap shrink-0"
+										:datetime="formatDatetime(exp.period)"
+									>
+										{{ exp.period }}
+									</time>
 								</div>
-								<!-- Period badge -->
-								<time
-									class="self-start inline-flex px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 bg-primary-500/20 text-primary-300 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap shrink-0"
-									:datetime="formatDatetime(exp.period)"
-								>
-									{{ exp.period }}
-								</time>
 							</div>
 						</div>
 
-						<!-- Description -->
+						<!-- Description singkat (1-2 kalimat) -->
 						<p v-if="exp.description" class="text-gray-400 text-sm sm:text-base mb-3 sm:mb-4 leading-relaxed">
 							{{ exp.description }}
 						</p>
 
-						<!-- Achievements/Responsibilities -->
-						<ul
-							v-if="exp.achievements && exp.achievements.length"
-							class="text-gray-400 text-sm sm:text-base mb-3 sm:mb-4 space-y-1 list-disc list-inside"
-						>
-							<li v-for="(achievement, idx) in exp.achievements" :key="`achievement-${idx}`" class="leading-relaxed">
+						<!-- 
+							ACHIEVEMENTS — Ini yang paling penting untuk diisi
+							Ganti bullets generik dengan pencapaian konkret + angka nyata.
+							
+							Contoh yang BAIK:
+							✅ "Migrated 3 legacy PHP modules to RESTful APIs, reducing average response time by ~40%"
+							✅ "Designed MySQL schema for a ticketing system handling 500+ daily transactions"
+							✅ "Built Flutter mobile app used by 20+ field technicians across 3 locations"
+							
+							Contoh yang BURUK (hindari):
+							❌ "Responsible for backend development"
+							❌ "Collaborated with cross-functional teams"
+						-->
+						<ul v-if="exp.achievements && exp.achievements.length" class="space-y-2 mb-3 sm:mb-4" aria-label="Key achievements">
+							<li
+								v-for="(achievement, idx) in exp.achievements"
+								:key="`achievement-${idx}`"
+								class="flex items-start gap-2 text-gray-400 text-sm sm:text-base leading-relaxed"
+							>
+								<!-- Icon achievement -->
+								<svg class="w-4 h-4 text-primary-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+									/>
+								</svg>
 								{{ achievement }}
 							</li>
 						</ul>
@@ -123,6 +156,18 @@ const { isVisible, targetRef } = useIntersectionObserver({
 });
 
 const formatDatetime = (period) => period.replace(/\s*-\s*/g, "/");
+
+// Ambil 2 huruf pertama nama perusahaan sebagai fallback logo
+const getInitials = (company) => {
+	return company
+		.split(" ")
+		.filter((word) => !["PT", "CV", "the", "and", "&"].includes(word))
+		.slice(0, 2)
+		.map((word) => word[0])
+		.join("")
+		.toUpperCase();
+};
+
 const hasExperiences = computed(() => props.experiences && props.experiences.length > 0);
 </script>
 

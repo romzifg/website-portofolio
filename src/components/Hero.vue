@@ -1,6 +1,5 @@
 <template>
 	<section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 sm:pt-20">
-		<!-- Animated Background -->
 		<div class="absolute inset-0 overflow-hidden pointer-events-none">
 			<div class="absolute top-1/4 -left-20 sm:-left-40 w-64 sm:w-96 h-64 sm:h-96 bg-primary-500/20 rounded-full blur-3xl animate-float"></div>
 			<div
@@ -10,29 +9,23 @@
 
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12 sm:py-0">
 			<div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-				<!-- Content -->
 				<div class="space-y-5 sm:space-y-6 animate-slide-up text-center lg:text-left">
-					<div class="inline-block px-4 py-2 glass rounded-full text-xs sm:text-sm text-primary-400">👋 Welcome to my portfolio</div>
-
 					<h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-bold leading-tight">
 						Hi, I'm <span class="text-gradient">{{ name }}</span>
 					</h1>
-
 					<p class="text-xl sm:text-2xl lg:text-3xl text-gray-400 font-display italic">
 						{{ title }}
 					</p>
-
 					<p class="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
 						{{ bio }}
 					</p>
 
-					<!-- CTA Buttons -->
 					<div class="flex flex-col xs:flex-row flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
 						<a
 							href="#projects"
 							class="px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-r from-primary-500 to-pink-500 rounded-full font-semibold hover:shadow-lg hover:shadow-primary-500/50 transition-all inline-flex items-center justify-center gap-2 group text-sm sm:text-base"
 						>
-							View My Work
+							My Projects
 							<svg
 								class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform"
 								fill="none"
@@ -47,7 +40,7 @@
 							href="#contact"
 							class="px-6 sm:px-8 py-3 sm:py-4 glass rounded-full font-semibold hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2 text-sm sm:text-base"
 						>
-							Get in Touch
+							Contact Me
 						</a>
 					</div>
 
@@ -86,18 +79,6 @@
 									d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
 								/>
 							</svg>
-							<!-- Threads Icon -->
-							<svg
-								v-else-if="social.icon === 'threads'"
-								class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
-								fill="currentColor"
-								viewBox="0 0 24 24"
-								aria-hidden="true"
-							>
-								<path
-									d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.704-1.021 0-1.923-.28-2.68-.833a4.165 4.165 0 01-1.572-2.166 7.21 7.21 0 01-.41-2.402c0-1.405.346-2.508 1.03-3.28.687-.774 1.612-1.166 2.75-1.166 1.108 0 2.003.382 2.66 1.135.377.431.656.953.83 1.552.173-.577.462-1.073.862-1.476a3.37 3.37 0 011.558-.868c-1.064-2.076-2.848-3.149-5.3-3.149-1.852 0-3.295.593-4.29 1.762-.997 1.168-1.496 2.847-1.496 5.004 0 2.157.5 3.835 1.496 5.004.996 1.169 2.438 1.762 4.29 1.762 1.818 0 3.352-.555 4.561-1.649 1.212-1.094 1.818-2.533 1.818-4.283v-.063c0-.085 0-.17.004-.254.87.454 1.513 1.074 1.913 1.847.687 1.329.732 3.096-.366 5.26-1.302 2.572-4.261 3.864-9.076 3.892zm1.065-10.867c-.13-.693-.428-1.245-.889-1.655-.461-.41-1.033-.615-1.714-.615-.71 0-1.29.246-1.734.738-.444.492-.666 1.19-.666 2.095 0 .904.222 1.603.666 2.095.444.492 1.024.738 1.734.738.681 0 1.253-.205 1.714-.615.461-.41.759-.962.889-1.655z"
-								/>
-							</svg>
 							<!-- Instagram Icon -->
 							<svg
 								v-else-if="social.icon === 'instagram'"
@@ -110,25 +91,67 @@
 									d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
 								/>
 							</svg>
+							<!-- Threads Icon -->
+							<svg
+								v-else-if="social.icon === 'threads'"
+								class="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform"
+								fill="currentColor"
+								viewBox="0 0 24 24"
+								aria-hidden="true"
+							>
+								<path
+									d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.704-1.021 0-1.923-.28-2.68-.833a4.165 4.165 0 01-1.572-2.166 7.21 7.21 0 01-.41-2.402c0-1.405.346-2.508 1.03-3.28.687-.774 1.612-1.166 2.75-1.166 1.108 0 2.003.382 2.66 1.135.377.431.656.953.83 1.552.173-.577.462-1.073.862-1.476a3.37 3.37 0 011.558-.868c-1.064-2.076-2.848-3.149-5.3-3.149-1.852 0-3.295.593-4.29 1.762-.997 1.168-1.496 2.847-1.496 5.004 0 2.157.5 3.835 1.496 5.004.996 1.169 2.438 1.762 4.29 1.762 1.818 0 3.352-.555 4.561-1.649 1.212-1.094 1.818-2.533 1.818-4.283v-.063c0-.085 0-.17.004-.254.87.454 1.513 1.074 1.913 1.847.687 1.329.732 3.096-.366 5.26-1.302 2.572-4.261 3.864-9.076 3.892zm1.065-10.867c-.13-.693-.428-1.245-.889-1.655-.461-.41-1.033-.615-1.714-.615-.71 0-1.29.246-1.734.738-.444.492-.666 1.19-.666 2.095 0 .904.222 1.603.666 2.095.444.492 1.024.738 1.734.738.681 0 1.253-.205 1.714-.615.461-.41.759-.962.889-1.655z"
+								/>
+							</svg>
 						</a>
 					</div>
 				</div>
 
-				<!-- Visual Element - hidden on mobile, shown on lg+ -->
-				<div class="hidden lg:flex justify-center items-center animate-fade-in animation-delay-3" aria-hidden="true">
+				<div class="hidden lg:flex justify-center items-center animate-fade-in animation-delay-3" aria-hidden="false">
 					<div class="relative">
-						<div class="w-80 xl:w-96 h-80 xl:h-96 glass rounded-3xl flex items-center justify-center glow animate-float">
-							<div class="text-8xl xl:text-9xl" role="img" aria-label="Computer emoji">💻</div>
+						<!-- Frame foto profil -->
+						<div class="photo-frame w-80 xl:w-96 h-80 xl:h-96 rounded-3xl overflow-hidden glow animate-float relative">
+							<img
+								src="/src/assets/romzi-farhan.jpeg"
+								alt="Romzi Farhan Ghozi - Full Stack Developer"
+								class="w-full h-full object-cover object-center"
+							/>
+
+							<!-- Placeholder sementara sebelum foto ditambahkan -->
+							<div class="photo-placeholder w-full h-full flex flex-col items-center justify-center glass text-center gap-3">
+								<div class="w-24 h-24 rounded-full bg-primary-500/20 border-2 border-primary-400/40 flex items-center justify-center">
+									<svg class="w-12 h-12 text-primary-400/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="1.5"
+											d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+										/>
+									</svg>
+								</div>
+								<p class="text-xs text-gray-500 px-4">← Ganti dengan foto kamu</p>
+							</div>
+
+							<!-- Gradient overlay bawah foto (tetap meski sudah pakai foto) -->
+							<div
+								class="absolute bottom-0 left-0 right-0 h-1/3 bg-linear-to-t from-dark-900/80 to-transparent pointer-events-none"
+							></div>
 						</div>
+
+						<!-- Badge status availability -->
 						<div
-							class="absolute -top-8 xl:-top-10 -right-8 xl:-right-10 w-16 xl:w-20 h-16 xl:h-20 glass rounded-2xl flex items-center justify-center animate-float animation-delay-1"
+							class="absolute -top-3 -right-3 xl:-top-4 xl:-right-4 px-3 py-1.5 glass rounded-full flex items-center gap-1.5 animate-float animation-delay-1 text-xs font-medium"
 						>
-							<div class="text-2xl xl:text-3xl" role="img" aria-label="Lightning emoji">⚡</div>
+							<span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+							Open to work
 						</div>
+
+						<!-- Badge tech stack -->
 						<div
-							class="absolute -bottom-8 xl:-bottom-10 -left-8 xl:-left-10 w-16 xl:w-20 h-16 xl:h-20 glass rounded-2xl flex items-center justify-center animate-float animation-delay-2"
+							class="absolute -bottom-4 xl:-bottom-5 -left-4 xl:-left-5 px-3 py-1.5 glass rounded-xl flex items-center gap-2 animate-float animation-delay-2 text-xs"
 						>
-							<div class="text-2xl xl:text-3xl" role="img" aria-label="Rocket emoji">🚀</div>
+							<span>⚡</span>
+							<span class="text-gray-300">React · Go · Flutter </span>
 						</div>
 					</div>
 				</div>
@@ -157,15 +180,57 @@ const props = defineProps({
 });
 </script>
 
+<!--
+=======================================================
+CONTOH PENGGUNAAN KOMPONEN INI:
+=======================================================
+
+<HeroSection
+  name="Romzi Farhan Ghozi"
+  title="Full Stack Developer · Backend Enthusiast"
+  bio="Saya engineer di PT Sentral Mitra Informatika, fokus di backend — bikin sistem yang cepat, nggak rewel, dan bisa di-maintain tim lain. Senang tackle problem di level database dan arsitektur API."
+  :socials="[
+    { name: 'GitHub', icon: 'github', url: 'https://github.com/username' },
+    { name: 'LinkedIn', icon: 'linkedin', url: 'https://linkedin.com/in/username' },
+    { name: 'Instagram', icon: 'instagram', url: 'https://instagram.com/username' },
+  ]"
+/>
+
+=======================================================
+TIPS BIO YANG LEBIH NATURAL:
+=======================================================
+Hindari frasa seperti:
+  ❌ "Crafting elegant solutions through code"
+  ❌ "Specialized in building scalable web and mobile applications"
+
+Ganti dengan sesuatu yang lebih spesifik & personal, contoh:
+  ✅ "Saya engineer di [perusahaan], fokus di backend dan database optimization.
+      Senang kerja di masalah yang butuh nalar lebih — dari query lambat
+      sampai arsitektur yang perlu dipikirkan ulang."
+
+  ✅ "Backend developer dengan latar belakang matematika.
+      Suka sekali ngulik data pipeline dan bikin API yang nggak bikin
+      frontend developer ngeluh."
+-->
+
 <style scoped>
 .animation-delay-1 {
-	animation-delay: 1s;
+	animation-delay: 0.8s;
 }
 .animation-delay-2 {
-	animation-delay: 2s;
+	animation-delay: 1.8s;
 }
 .animation-delay-3 {
 	animation-delay: 0.3s;
+}
+
+/* Frame foto dengan border gradient */
+.photo-frame {
+	border: 1px solid rgba(99, 179, 237, 0.2);
+	box-shadow:
+		0 0 40px rgba(99, 179, 237, 0.1),
+		0 0 80px rgba(236, 72, 153, 0.05),
+		inset 0 0 40px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes float {
@@ -174,7 +239,7 @@ const props = defineProps({
 		transform: translateY(0px);
 	}
 	50% {
-		transform: translateY(-20px);
+		transform: translateY(-16px);
 	}
 }
 

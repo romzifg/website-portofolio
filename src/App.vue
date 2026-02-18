@@ -5,7 +5,7 @@
 		<main>
 			<Hero :name="profile.name" :title="profile.title" :bio="profile.bio" :socials="profile.socials" />
 
-			<AboutSection :stats="stats" />
+			<AboutSection :personalCards="personalCards" :bio="bio"/>
 			<Skills :skills="skills" />
 			<Experience :experiences="experiences" />
 			<Projects :projects="projects" />
@@ -26,7 +26,7 @@ import Projects from "./components/Projects.vue";
 import Contact from "./components/Contact.vue";
 import Footer from "./components/Footer.vue";
 
-import { profile, stats, skills, experiences, projects } from "./data/portofolio.js";
+import { profile, personalCards, skills, experiences, projects, bio } from "./data/portofolio.js";
 
 if (import.meta.env.DEV) {
 	console.assert(profile?.name, "Profile name is required");

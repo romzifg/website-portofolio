@@ -6,22 +6,21 @@
 					About <span class="text-gradient">Me</span>
 				</h2>
 
+				<!-- Bio — lebih natural, tidak generik -->
 				<p class="text-base sm:text-lg text-gray-400 leading-relaxed mb-6 sm:mb-8 text-center max-w-3xl mx-auto">
-					Software Engineer with 4+ years of experience in web and mobile application development, with a strong emphasis on backend
-					systems, RESTful APIs, and database optimization. Experienced in building scalable and maintainable applications using Golang,
-					JavaScript, React, and Flutter. In addition to application development, I have hands-on experience with data-related engineering
-					tasks such as data modeling, SQL-based data processing, and preparing data for analytics and reporting. Strong analytical
-					background in Mathematics with interest in data engineering and data-driven systems.
+					{{ bio }}
 				</p>
 
-				<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8">
-					<div v-for="stat in stats" :key="stat.label" class="text-center p-3 sm:p-4 rounded-xl hover:bg-white/5 transition-colors">
-						<div class="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-gradient mb-1 sm:mb-2">
-							{{ stat.value }}
-						</div>
-						<div class="text-gray-400 text-xs sm:text-sm md:text-base leading-tight">
-							{{ stat.label }}
-						</div>
+				<!-- Personal cards — lebih mencerminkan karakter -->
+				<div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8">
+					<div
+						v-for="card in personalCards"
+						:key="card.label"
+						class="flex flex-col gap-1.5 p-4 sm:p-5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+					>
+						<span class="text-xl sm:text-2xl" aria-hidden="true">{{ card.icon }}</span>
+						<span class="text-xs sm:text-sm text-primary-400 font-semibold tracking-wide uppercase">{{ card.label }}</span>
+						<span class="text-sm sm:text-base text-gray-300 font-medium leading-snug">{{ card.value }}</span>
 					</div>
 				</div>
 			</article>
@@ -31,10 +30,14 @@
 
 <script setup>
 defineProps({
-	stats: {
+	bio: {
+		type: String,
+		required: true,
+	},
+	personalCards: {
 		type: Array,
 		required: true,
-		validator: (value) => value.every((stat) => stat.value && stat.label),
+		validator: (value) => value.every((card) => card.icon && card.label && card.value),
 	},
 });
 </script>
