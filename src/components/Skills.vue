@@ -99,11 +99,24 @@ const { isVisible, targetRef } = useIntersectionObserver({
 	rootMargin: "0px 0px -100px 0px",
 });
 
-// =============================================
-// PRIMARY SKILLS — yang di-highlight
-// Sesuaikan list ini jika ada perubahan
-// =============================================
-const primarySkills = ["React", "Express.js", "PostgreSQL"];
+const primarySkills = [
+	"JavaScript",
+	"TypeScript",
+	"PHP",
+	"Python",
+	"React",
+	"Express.js",
+	"Laravel",
+	"Flutter",
+	"Tailwind CSS",
+	"PostgreSQL",
+	"MySQL",
+	"Redis",
+	"Git",
+	"Docker",
+	"Numpy",
+	"Pandas",
+];
 
 const isPrimary = (name) => primarySkills.includes(name);
 
@@ -123,42 +136,6 @@ const getCategoryIcon = (category) => {
 
 const skillsCount = computed(() => props.skills.length);
 </script>
-
-<!--
-=======================================================
-CONTOH DATA YANG DIREKOMENDASIKAN:
-=======================================================
-Gunakan format string biasa untuk items.
-Primary skills akan otomatis di-highlight berdasarkan
-list `primarySkills` di dalam script.
-
-export const skills = [
-  {
-    category: 'Languages',
-    items: ['JavaScript', 'TypeScript', 'PHP', 'Python', 'Golang', 'Dart']
-  },
-  {
-    category: 'Frontend',
-    items: ['React', 'Vue.js', 'Flutter', 'Tailwind CSS']
-  },
-  {
-    category: 'Backend',
-    items: ['Express.js', 'NestJS', 'Laravel', 'FastAPI', 'Gin']
-  },
-  {
-    category: 'Database',
-    items: ['PostgreSQL', 'MySQL', 'Redis']
-  },
-  {
-    category: 'DevOps',
-    items: ['Docker', 'Git', 'CI/CD', 'Linux']
-  },
-]
-
-Untuk menambah/mengubah primary skill,
-edit array `primarySkills` di dalam <script setup>.
-=======================================================
--->
 
 <style scoped>
 /* Primary skill badge */
