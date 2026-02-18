@@ -68,7 +68,7 @@ export const experiences = [
         title: 'Full Stack Developer',
         company: 'PT Sentral Mitra Informatika',
         period: 'Oct 2021 - Present',
-        logo: '/public/assets/smi-logo.png',
+        logo: '/assets/smi-logo.png',
         description: "Joined to help modernize a legacy monolith — ended up owning the backend migration to RESTful services, redesigning database schemas, and writing the SQL that now powers the company's operational reports. Day-to-day is a mix of React, Express, and keeping things from breaking in production.",
         tech: ['Laravel', 'React', 'Next', 'Flutter', 'FastAPI', 'Express', 'MySQL', 'PostgreSQL', 'Redis', 'Docker', 'Git'],
         achievements: [
@@ -92,7 +92,7 @@ export const experiences = [
         title: 'Mathematical Computing Laboratory Assistant ',
         company: 'Bandung Islamic University (UNISBA)',
         period: '2019 - 2020',
-        logo: '/public/assets/unisba-logo.png',
+        logo: '/assets/unisba-logo.png',
         description: "Taught practical sessions for numerical methods and linear algebra to undergrad students. Probably where I learned that if you can't explain something simply, you don't understand it well enough yet.",
         achievements: [
             'Preparing laboratory materials and assignments for mathematical computing courses.',
@@ -106,7 +106,7 @@ export const projects = [
         description: "Built a ticketing platform that uses NLP to auto-categorize requests, flag priority, and draft initial responses — so support teams spend less time triaging and more time actually solving problems.",
         tech: ["Next", "FastAPI", "PostgreSQL"],
         category: "Web",
-        image: "/public/assets/ai-powered.png"
+        image: "/assets/ai-powered.png"
     },
     {
         title: "Data Processing & Analytics Pipeline",
@@ -119,14 +119,14 @@ export const projects = [
         description: "Internal tool for managing field technician jobs — task assignment, real-time status, equipment tracking, all in one place. Built both the web dashboard and the mobile app the technicians use on-site.",
         tech: ["React", "Express.js", "Flutter", "MySQL"],
         category: "Web/Mobile",
-        image: "/public/assets/technician-ticket.png"
+        image: "/assets/technician-ticket.png"
     },
     {
         title: "Document Review Application",
         description: "Replaced an email-based approval process with a proper web app — role-based access, multi-step workflows, and a clear audit trail. Less back-and-forth, fewer things slipping through the cracks.",
         tech: ["React", "Express.js", "MySQL"],
         category: "Web",
-        image: "/public/assets/doc-review.png"
+        image: "/assets/doc-review.png"
     },
     {
         title: "Visitor Application",
@@ -139,13 +139,13 @@ export const projects = [
         description: "Web app to manage product submission and approval cycles between teams. Structured the workflow so nothing gets stuck waiting on someone who doesn't know it's their turn.",
         tech: ["Next.js", "Express.js", "MySQL"],
         category: "Web",
-        image: "/public/assets/reg-product.png"
+        image: "/assets/reg-product.png"
     },
     {
         title: "Field Monitoring Application",
         description: "Dashboard for tracking product performance in the field — data viz, monitoring reports, and trend analysis. Built so non-technical teams could actually read and use the data themselves.",
         tech: ["React", "Laravel", "PostgreSQL"],
         category: "Web",
-        image: "/public/assets/field-monitoring.png"
+        image: "/assets/field-monitoring.png"
     }
 ]
