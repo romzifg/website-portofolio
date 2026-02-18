@@ -143,7 +143,7 @@
 							class="absolute -top-3 -right-3 xl:-top-4 xl:-right-4 px-3 py-1.5 glass rounded-full flex items-center gap-1.5 animate-float animation-delay-1 text-xs font-medium"
 						>
 							<span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-							Open to work
+							Let’s Build Something
 						</div>
 
 						<!-- Badge tech stack -->
@@ -151,7 +151,7 @@
 							class="absolute -bottom-4 xl:-bottom-5 -left-4 xl:-left-5 px-3 py-1.5 glass rounded-xl flex items-center gap-2 animate-float animation-delay-2 text-xs"
 						>
 							<span>⚡</span>
-							<span class="text-gray-300">React · Go · Flutter </span>
+							<span class="text-gray-300">React · Express · Flutter · Postgres </span>
 						</div>
 					</div>
 				</div>
