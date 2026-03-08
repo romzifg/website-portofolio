@@ -23,7 +23,7 @@ export const personalCards = [
     {
         icon: '🚀',
         label: 'Projects shipped',
-        value: '7+ web & mobile apps'
+        value: '9+ web & mobile apps'
     },
     {
         icon: '🧠',
@@ -101,6 +101,20 @@ export const experiences = [
 ]
 
 export const projects = [
+    {
+        title: "POS App",
+        description: "A full-stack point-of-sale solution featuring secure payment processing, real-time stock alerts, and a comprehensive dashboard for monitoring.",
+        tech: ["React", "Express", "PostgreSQL"],
+        category: "Web",
+        image: "/assets/pos-app.png"
+    },
+    {
+        title: "Absence App",
+        description: "Built a cross-platform attendance system that allows employees to check in via mobile while providing HR teams with a centralized React dashboard for real-time tracking and automated monthly reporting.",
+        tech: ["React", "Express", "Flutter", "PostgreSQL"],
+        category: "Web/Mobile",
+        image: "/assets/absence-app.png"
+    },
     {
         title: "AI Support Ticketing System",
         description: "Built a ticketing platform that uses NLP to auto-categorize requests, flag priority, and draft initial responses — so support teams spend less time triaging and more time actually solving problems.",
