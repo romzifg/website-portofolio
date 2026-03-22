@@ -1,40 +1,60 @@
 <template>
-	<nav class="fixed top-0 w-full z-50 transition-all duration-300" :class="scrolled ? 'glass shadow-lg' : ''">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<div class="flex justify-between items-center h-16 sm:h-20">
-				<!-- Logo -->
-				<a href="#" class="text-xl sm:text-2xl font-bold text-gradient font-display truncate max-w-[60%]" @click.prevent="scrollToTop">
-					{{ name }}
+	<nav
+		class="fixed top-0 w-full z-50 transition-all duration-300"
+		:class="scrolled ? 'glass' : 'bg-transparent'"
+	>
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+			<div class="flex justify-between items-center h-16 sm:h-18">
+
+				<!-- Logo: initials + dot accent -->
+				<a
+					href="#"
+					@click.prevent="scrollToTop"
+					class="flex items-center gap-1.5 group"
+					aria-label="Back to top"
+				>
+					<span
+						class="font-display font-bold text-base sm:text-lg tracking-tight text-text"
+						style="font-family: var(--font-display);"
+					>
+						{{ initials }}
+					</span>
+					<span
+						class="w-1.5 h-1.5 rounded-full bg-accent group-hover:scale-150 transition-transform"
+						style="background-color: var(--color-accent);"
+					></span>
 				</a>
 
-				<!-- Desktop Menu -->
-				<div class="hidden md:flex items-center gap-6 lg:gap-8">
+				<!-- Desktop Nav -->
+				<div class="hidden md:flex items-center gap-8">
 					<a
 						v-for="link in links"
 						:key="link.name"
 						:href="link.href"
-						class="nav-link text-gray-300 hover:text-primary-500 transition-colors font-medium text-sm lg:text-base"
 						@click.prevent="scrollToSection(link.href)"
+						class="nav-link text-sm font-medium"
+						style="color: var(--color-text-muted); font-family: var(--font-mono);"
 					>
 						{{ link.name }}
 					</a>
 					<a
 						href="#contact"
-						class="btn-gradient px-4 lg:px-6 py-2 lg:py-2.5 rounded-full font-semibold hover:shadow-lg transition-all text-white text-sm lg:text-base whitespace-nowrap"
 						@click.prevent="scrollToSection('#contact')"
+						class="btn-accent px-5 py-2 text-sm rounded"
 					>
 						Contact
 					</a>
 				</div>
 
-				<!-- Mobile Menu Button -->
+				<!-- Mobile Toggle -->
 				<button
 					@click="toggleMobileMenu"
-					class="md:hidden text-gray-300 hover:text-primary-500 transition-colors p-2 rounded-lg hover:bg-white/5 shrink-0"
+					class="md:hidden p-2 rounded transition-colors"
+					:style="{ color: mobileMenuOpen ? 'var(--color-accent)' : 'var(--color-text-muted)' }"
 					:aria-label="mobileMenuOpen ? 'Close menu' : 'Open menu'"
 					:aria-expanded="mobileMenuOpen"
 				>
-					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 						<path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 					</svg>
@@ -42,25 +62,29 @@
 			</div>
 		</div>
 
-		<!-- Mobile Menu — diletakkan di luar container agar full-width -->
-		<!-- Background solid agar tidak tembus ke konten di bawah -->
+		<!-- Mobile Menu -->
 		<Transition name="slide">
-			<div v-if="mobileMenuOpen" class="md:hidden mobile-menu-bg border-t border-white/10">
-				<div class="max-w-7xl mx-auto px-4 py-3 space-y-1">
+			<div
+				v-if="mobileMenuOpen"
+				class="md:hidden border-t"
+				style="background-color: var(--color-bg); border-color: var(--color-border);"
+			>
+				<div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
 					<a
 						v-for="link in links"
 						:key="link.name"
 						:href="link.href"
 						@click.prevent="handleMobileClick(link.href)"
-						class="flex items-center px-4 py-3 text-gray-300 rounded-xl transition-colors hover:text-primary-500 hover:bg-white/5 font-medium text-sm"
+						class="px-3 py-2.5 text-sm font-medium rounded transition-colors"
+						style="color: var(--color-text-muted); font-family: var(--font-mono);"
 					>
 						{{ link.name }}
 					</a>
-					<div class="pt-2 pb-1">
+					<div class="pt-2">
 						<a
 							href="#contact"
 							@click.prevent="handleMobileClick('#contact')"
-							class="btn-gradient block px-4 py-3 rounded-xl font-semibold text-center text-white text-sm"
+							class="btn-accent block px-4 py-2.5 text-sm text-center rounded font-semibold"
 						>
 							Contact
 						</a>
@@ -72,113 +96,82 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 const props = defineProps({
-	name: {
-		type: String,
-		required: true,
-		default: "Portfolio",
-	},
+	name: { type: String, required: true, default: 'Portfolio' },
 });
 
 const scrolled = ref(false);
 const mobileMenuOpen = ref(false);
 
+const initials = computed(() => {
+	return props.name
+		.split(' ')
+		.slice(0, 2)
+		.map((w) => w[0])
+		.join('')
+		.toUpperCase();
+});
+
 const links = [
-	{ name: "About", href: "#about" },
-	{ name: "Skills", href: "#skills" },
-	{ name: "Experience", href: "#experience" },
-	{ name: "Projects", href: "#projects" },
+	{ name: 'about', href: '#about' },
+	{ name: 'skills', href: '#skills' },
+	{ name: 'experience', href: '#experience' },
+	{ name: 'projects', href: '#projects' },
 ];
 
 const scrollToSection = (href) => {
-	const element = document.querySelector(href);
-	if (element) {
-		element.scrollIntoView({ behavior: "smooth", block: "start" });
-	}
+	const el = document.querySelector(href);
+	if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
-const scrollToTop = () => {
-	window.scrollTo({ top: 0, behavior: "smooth" });
-};
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
 let scrollTimeout;
 const handleScroll = () => {
 	if (scrollTimeout) return;
 	scrollTimeout = setTimeout(() => {
-		scrolled.value = window.scrollY > 50;
+		scrolled.value = window.scrollY > 40;
 		scrollTimeout = null;
-	}, 100);
+	}, 80);
 };
 
-const toggleMobileMenu = () => {
-	mobileMenuOpen.value = !mobileMenuOpen.value;
-};
-
+const toggleMobileMenu = () => { mobileMenuOpen.value = !mobileMenuOpen.value; };
 const handleMobileClick = (href) => {
 	mobileMenuOpen.value = false;
-	setTimeout(() => scrollToSection(href), 300);
+	setTimeout(() => scrollToSection(href), 280);
 };
 
-onMounted(() => window.addEventListener("scroll", handleScroll, { passive: true }));
+onMounted(() => window.addEventListener('scroll', handleScroll, { passive: true }));
 onUnmounted(() => {
-	window.removeEventListener("scroll", handleScroll);
+	window.removeEventListener('scroll', handleScroll);
 	if (scrollTimeout) clearTimeout(scrollTimeout);
 });
 </script>
 
 <style scoped>
-.font-display {
-	font-family: var(--font-display);
-}
-
-/*
- * Background solid untuk mobile menu.
- * Tidak pakai glass/transparan agar tidak tembus ke konten Hero di belakangnya.
- */
-.mobile-menu-bg {
-	background-color: #0a0e1a;
-	background-color: var(--color-dark-900, #0a0e1a);
-}
-
-.btn-gradient {
-	background: linear-gradient(to right, var(--color-primary-500), var(--color-accent-500));
-	box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
-}
-
-.btn-gradient:hover {
-	box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4);
-	transform: translateY(-2px);
-}
-
 .nav-link {
 	position: relative;
+	transition: color 0.2s;
 }
-
+.nav-link:hover {
+	color: var(--color-text) !important;
+}
 .nav-link::after {
-	content: "";
+	content: '';
 	position: absolute;
-	bottom: -4px;
+	bottom: -3px;
 	left: 0;
 	width: 0;
-	height: 2px;
-	background: var(--color-primary-500);
-	transition: width 0.3s ease;
+	height: 1px;
+	background: var(--color-accent);
+	transition: width 0.25s ease;
 }
-
-.nav-link:hover::after {
-	width: 100%;
-}
+.nav-link:hover::after { width: 100%; }
 
 .slide-enter-active,
-.slide-leave-active {
-	transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
+.slide-leave-active { transition: all 0.22s ease; }
 .slide-enter-from,
-.slide-leave-to {
-	opacity: 0;
-	transform: translateY(-8px);
-}
+.slide-leave-to { opacity: 0; transform: translateY(-6px); }
 </style>

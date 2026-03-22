@@ -1,122 +1,152 @@
 @import "tailwindcss";
 
 @theme {
-    /* Custom Breakpoint */
+    /* Breakpoints */
     --breakpoint-xs: 480px;
 
-    /* Custom Colors */
-    --color-primary-50: #eff6ff;
-    --color-primary-100: #dbeafe;
-    --color-primary-400: #60a5fa;
-    --color-primary-500: #3b82f6;
-    --color-primary-600: #2563eb;
-    --color-primary-700: #1d4ed8;
+    /* === COLOR SYSTEM === */
+    /* Background layers */
+    --color-bg: #111010;
+    --color-surface: #191818;
+    --color-surface-2: #212020;
+    --color-surface-3: #2A2929;
 
-    --color-accent-400: #34d399;
-    --color-accent-500: #10b981;
-    --color-accent-600: #059669;
+    /* Borders */
+    --color-border: #2C2C2C;
+    --color-border-subtle: #1E1E1E;
 
-    --color-dark-900: #0a0e1a;
-    --color-dark-800: #131720;
-    --color-dark-700: #1e2330;
+    /* Text */
+    --color-text: #F0EEE8;
+    --color-text-muted: #8A8580;
+    --color-text-subtle: #555250;
 
-    /* Custom Fonts */
-    --font-display: 'Poppins', sans-serif;
-    --font-body: 'Poppins', sans-serif;
+    /* Accent — warm orange, confident, not generic blue */
+    --color-accent: #E5622A;
+    --color-accent-hover: #C4521F;
+    --color-accent-light: rgba(229, 98, 42, 0.12);
+    --color-accent-border: rgba(229, 98, 42, 0.3);
 
-    /* Custom Animations */
-    --animate-float: float 6s ease-in-out infinite;
-    --animate-slide-up: slideUp 0.6s ease-out;
-    --animate-fade-in: fadeIn 0.8s ease-out;
+    /* Legacy aliases — kept for gradual migration */
+    --color-primary-400: #E5622A;
+    --color-primary-500: #E5622A;
+    --color-primary-600: #C4521F;
+    --color-dark-900: #111010;
+    --color-dark-800: #191818;
+    --color-dark-700: #212020;
+
+    /* === TYPOGRAPHY === */
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+
+    /* === ANIMATIONS === */
+    --animate-fade-up: fadeUp 0.5s ease-out forwards;
+    --animate-fade-in: fadeIn 0.4s ease-out forwards;
 }
 
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-20px);
-    }
-}
-
-@keyframes slideUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
-/* Base Styles */
+/* =====================
+   BASE
+   ===================== */
 body {
-    background-color: var(--color-dark-900);
-    color: rgb(243 244 246);
+    background-color: var(--color-bg);
+    color: var(--color-text);
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
 }
 
-/* Custom Utilities */
+/* =====================
+   UTILITY CLASSES
+   ===================== */
+
+/* Solid surface card — replaces glassmorphism */
+.card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+}
+
+.card-hover:hover {
+    background-color: var(--color-surface-2);
+    border-color: var(--color-surface-3);
+}
+
+/* Accent text */
+.text-accent {
+    color: var(--color-accent);
+}
+
+/* Mono label */
+.mono {
+    font-family: var(--font-mono);
+}
+
+/* Thin horizontal rule */
+.h-rule {
+    border: none;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Section label — small all-caps mono tag */
+.section-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+}
+
+/* Solid accent button */
+.btn-accent {
+    background-color: var(--color-accent);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+.btn-accent:hover {
+    background-color: var(--color-accent-hover);
+}
+
+/* Ghost button */
+.btn-ghost {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-weight: 600;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+.btn-ghost:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+/* Keep glass for Navbar scroll effect only */
 .glass {
-    background-color: rgb(255 255 255 / 0.05);
+    background-color: rgba(17, 16, 16, 0.92);
     backdrop-filter: blur(12px);
-    border: 1px solid rgb(255 255 255 / 0.1);
+    border-bottom: 1px solid var(--color-border);
 }
 
-.text-gradient {
-    background: linear-gradient(to right, var(--color-primary-500), rgb(96 165 250), var(--color-accent-500));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
+/* =====================
+   SCROLLBAR
+   ===================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-surface-3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
 
-.glow {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #131720;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #3b82f6;
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #2563eb;
-}
-
-/* Smooth Scroll */
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }

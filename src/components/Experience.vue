@@ -1,205 +1,147 @@
 <template>
-	<section id="experience" class="py-16 sm:py-24 relative scroll-mt-20">
-		<!-- Background decoration -->
-		<div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-			<div class="absolute top-1/3 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-pink-500/10 rounded-full blur-3xl"></div>
-		</div>
+	<section id="experience" class="py-20 sm:py-28 scroll-mt-20" style="border-top: 1px solid var(--color-border);">
+		<div class="max-w-4xl mx-auto px-6 lg:px-8">
 
-		<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-			<!-- Header -->
-			<header
-				ref="targetRef"
-				class="text-center mb-10 sm:mb-12 md:mb-16 transition-all duration-700"
-				:class="{ 'opacity-0 translate-y-8': !isVisible, 'opacity-100 translate-y-0': isVisible }"
-			>
-				<h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-3 sm:mb-4">
-					Work <span class="text-gradient">Experience</span>
-				</h2>
-				<p class="text-gray-400 text-sm sm:text-base md:text-lg">My professional journey</p>
-			</header>
+			<!-- Section header -->
+			<div class="flex items-center gap-4 mb-12">
+				<span class="section-label">03 / experience</span>
+				<div class="flex-1 h-px" style="background-color: var(--color-border);"></div>
+			</div>
 
 			<!-- Timeline -->
-			<div class="space-y-5 sm:space-y-6 md:space-y-8" role="list">
-				<article
-					v-for="(exp, index) in experiences"
-					:key="exp.id || `exp-${index}`"
-					class="relative pl-5 sm:pl-6 md:pl-8 border-l-2 border-primary-500/30 hover:border-primary-500 transition-all duration-300 group"
-					:class="{
-						'opacity-0 translate-x-8': !isVisible,
-						'opacity-100 translate-x-0': isVisible,
-					}"
-					:style="{
-						transitionDelay: isVisible ? `${index * 150}ms` : '0ms',
-						transitionDuration: '700ms',
-					}"
-					role="listitem"
-				>
-					<!-- Timeline Dot -->
-					<div
-						class="absolute -left-2 top-5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-primary-500 rounded-full group-hover:scale-125 transition-transform glow"
-						aria-hidden="true"
-					></div>
+			<div ref="targetRef" class="relative">
 
-					<!-- Content Card -->
-					<div class="glass p-4 sm:p-5 md:p-6 rounded-xl hover:bg-white/10 transition-all duration-300">
-						<!-- Header: Logo + Title + Period -->
-						<div class="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
-							<!-- Company Logo / Inisial -->
-							<div class="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden glass flex items-center justify-center">
-								<img v-if="exp.logo" :src="exp.logo" :alt="`${exp.company} logo`" class="w-full h-full object-contain p-1" />
-								<!-- Fallback: inisial perusahaan -->
-								<span v-else class="text-sm sm:text-base font-bold text-primary-400">
-									{{ getInitials(exp.company) }}
-								</span>
-							</div>
+				<!-- Vertical line -->
+				<div
+					class="absolute left-0 top-2 bottom-0 w-px hidden sm:block"
+					style="background-color: var(--color-border);"
+				></div>
 
-							<!-- Title, Company, Period -->
-							<div class="flex-1 min-w-0">
-								<div class="flex flex-col xs:flex-row xs:items-start xs:justify-between gap-1.5 sm:gap-2">
-									<div class="flex-1 min-w-0">
-										<h3 class="text-base sm:text-xl md:text-2xl font-display font-bold text-gray-100 leading-tight">
+				<div class="space-y-0">
+					<article
+						v-for="(exp, index) in experiences"
+						:key="exp.id || `exp-${index}`"
+						class="exp-item relative sm:pl-10 pb-10 last:pb-0"
+						:class="isVisible ? 'is-visible' : ''"
+						:style="{ '--delay': `${index * 100}ms` }"
+					>
+						<!-- Timeline dot — hidden on mobile -->
+						<div
+							class="absolute left-0 top-2 -translate-x-1/2 w-2 h-2 rounded-full border-2 hidden sm:block"
+							style="background-color: var(--color-bg); border-color: var(--color-accent);"
+							aria-hidden="true"
+						></div>
+
+						<!-- Card -->
+						<div class="card rounded-lg p-5 sm:p-6 transition-colors card-hover">
+
+							<!-- Header row -->
+							<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+								<div class="flex items-start gap-3">
+									<!-- Company initial badge -->
+									<div
+										class="shrink-0 w-9 h-9 rounded flex items-center justify-center text-xs font-bold"
+										style="background-color: var(--color-surface-2); color: var(--color-accent); font-family: var(--font-mono);"
+									>
+										{{ getInitials(exp.company) }}
+									</div>
+									<div>
+										<h3
+											class="text-base sm:text-lg font-bold"
+											style="font-family: var(--font-display);"
+										>
 											{{ exp.title }}
 										</h3>
-										<p class="text-primary-400 font-semibold text-xs sm:text-sm mt-0.5">
+										<p class="text-sm" style="color: var(--color-accent); font-family: var(--font-mono);">
 											{{ exp.company }}
 										</p>
 									</div>
-									<!-- Period badge -->
-									<time
-										class="self-start inline-flex px-2.5 sm:px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-xs font-medium whitespace-nowrap shrink-0"
-										:datetime="formatDatetime(exp.period)"
-									>
-										{{ exp.period }}
-									</time>
 								</div>
+								<!-- Period badge -->
+								<time
+									class="self-start shrink-0 text-xs px-2.5 py-1 rounded"
+									style="
+										background-color: var(--color-surface-2);
+										border: 1px solid var(--color-border);
+										color: var(--color-text-muted);
+										font-family: var(--font-mono);
+									"
+									:datetime="exp.period"
+								>
+									{{ exp.period }}
+								</time>
+							</div>
+
+							<!-- Description -->
+							<p v-if="exp.description" class="text-sm mb-4 leading-relaxed" style="color: var(--color-text-muted);">
+								{{ exp.description }}
+							</p>
+
+							<!-- Achievements -->
+							<ul v-if="exp.achievements?.length" class="space-y-2 mb-4">
+								<li
+									v-for="(ach, i) in exp.achievements"
+									:key="i"
+									class="flex items-start gap-2.5 text-sm leading-relaxed"
+									style="color: var(--color-text-muted);"
+								>
+									<span class="mt-1.5 shrink-0 w-1 h-1 rounded-full" style="background-color: var(--color-accent);"></span>
+									{{ ach }}
+								</li>
+							</ul>
+
+							<!-- Tech tags -->
+							<div v-if="exp.tech?.length" class="flex flex-wrap gap-1.5 pt-2" style="border-top: 1px solid var(--color-border-subtle);">
+								<span
+									v-for="tech in exp.tech"
+									:key="tech"
+									class="text-xs px-2 py-0.5 rounded"
+									style="
+										background-color: var(--color-surface-2);
+										color: var(--color-text-subtle);
+										font-family: var(--font-mono);
+									"
+								>
+									{{ tech }}
+								</span>
 							</div>
 						</div>
-
-						<!-- Description singkat (1-2 kalimat) -->
-						<p v-if="exp.description" class="text-gray-400 text-sm sm:text-base mb-3 sm:mb-4 leading-relaxed">
-							{{ exp.description }}
-						</p>
-
-						<!-- 
-							ACHIEVEMENTS — Ini yang paling penting untuk diisi
-							Ganti bullets generik dengan pencapaian konkret + angka nyata.
-							
-							Contoh yang BAIK:
-							✅ "Migrated 3 legacy PHP modules to RESTful APIs, reducing average response time by ~40%"
-							✅ "Designed MySQL schema for a ticketing system handling 500+ daily transactions"
-							✅ "Built Flutter mobile app used by 20+ field technicians across 3 locations"
-							
-							Contoh yang BURUK (hindari):
-							❌ "Responsible for backend development"
-							❌ "Collaborated with cross-functional teams"
-						-->
-						<ul v-if="exp.achievements && exp.achievements.length" class="space-y-2 mb-3 sm:mb-4" aria-label="Key achievements">
-							<li
-								v-for="(achievement, idx) in exp.achievements"
-								:key="`achievement-${idx}`"
-								class="flex items-start gap-2 text-gray-400 text-sm sm:text-base leading-relaxed"
-							>
-								<!-- Icon achievement -->
-								<svg class="w-4 h-4 text-primary-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-									/>
-								</svg>
-								{{ achievement }}
-							</li>
-						</ul>
-
-						<!-- Tech Stack -->
-						<div v-if="exp.tech && exp.tech.length" class="flex flex-wrap gap-1.5 sm:gap-2" role="list" aria-label="Technologies used">
-							<span
-								v-for="tech in exp.tech"
-								:key="tech"
-								class="inline-block px-2.5 sm:px-3 py-0.5 sm:py-1 bg-dark-800/80 rounded-lg text-xs sm:text-sm font-medium text-gray-300 hover:bg-primary-500/20 hover:text-primary-300 transition-colors"
-								role="listitem"
-							>
-								{{ tech }}
-							</span>
-						</div>
-					</div>
-				</article>
+					</article>
+				</div>
 			</div>
 
-			<!-- Empty State -->
-			<div v-if="!experiences || experiences.length === 0" class="text-center py-12 text-gray-500">
-				<p class="text-lg">No experience data available</p>
-			</div>
 		</div>
 	</section>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useIntersectionObserver } from "../composables/Useintersectionobserver";
+import { useIntersectionObserver } from '../composables/Useintersectionobserver';
 
-const props = defineProps({
-	experiences: {
-		type: Array,
-		required: true,
-		default: () => [],
-		validator: (value) => {
-			return value.every((exp) => exp.title && exp.company && exp.period && (!exp.tech || Array.isArray(exp.tech)));
-		},
-	},
+defineProps({
+	experiences: { type: Array, required: true, default: () => [] },
 });
 
-const { isVisible, targetRef } = useIntersectionObserver({
-	threshold: 0.1,
-	rootMargin: "0px 0px -100px 0px",
-});
+const { isVisible, targetRef } = useIntersectionObserver({ threshold: 0.05 });
 
-const formatDatetime = (period) => period.replace(/\s*-\s*/g, "/");
-
-// Ambil 2 huruf pertama nama perusahaan sebagai fallback logo
-const getInitials = (company) => {
-	return company
-		.split(" ")
-		.filter((word) => !["PT", "CV", "the", "and", "&"].includes(word))
+const getInitials = (company) =>
+	company
+		.split(' ')
+		.filter((w) => !['PT', 'CV', 'the', 'and', '&'].includes(w))
 		.slice(0, 2)
-		.map((word) => word[0])
-		.join("")
+		.map((w) => w[0])
+		.join('')
 		.toUpperCase();
-};
-
-const hasExperiences = computed(() => props.experiences && props.experiences.length > 0);
 </script>
 
 <style scoped>
-.opacity-0 {
+.exp-item {
 	opacity: 0;
+	transform: translateY(12px);
+	transition: opacity 0.45s ease var(--delay, 0ms), transform 0.45s ease var(--delay, 0ms);
 }
-.opacity-100 {
-	opacity: 1;
-}
-.translate-y-8 {
-	transform: translateY(2rem);
-}
-.translate-y-0 {
-	transform: translateY(0);
-}
-.translate-x-8 {
-	transform: translateX(2rem);
-}
-.translate-x-0 {
-	transform: translateX(0);
-}
-
-.glow {
-	box-shadow: 0 0 20px rgba(var(--primary-rgb, 59, 130, 246), 0.5);
-}
+.exp-item.is-visible { opacity: 1; transform: translateY(0); }
 
 @media (prefers-reduced-motion: reduce) {
-	* {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-	}
+	.exp-item { transition: none; opacity: 1; transform: none; }
 }
 </style>

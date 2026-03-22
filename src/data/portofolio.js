@@ -23,7 +23,7 @@ export const personalCards = [
     {
         icon: '🚀',
         label: 'Projects shipped',
-        value: '9+ web & mobile apps'
+        value: '10+ web & mobile apps'
     },
     {
         icon: '🧠',

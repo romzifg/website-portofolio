@@ -1,76 +1,61 @@
 <template>
-	<section id="skills" class="py-16 sm:py-24 relative overflow-hidden scroll-mt-20">
-		<!-- Background decoration -->
-		<div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-			<div class="absolute top-1/2 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-primary-500/10 rounded-full blur-3xl"></div>
-		</div>
+	<section id="skills" class="py-20 sm:py-28 scroll-mt-20" style="border-top: 1px solid var(--color-border);">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8">
 
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-			<!-- Header -->
-			<header
+			<!-- Section header -->
+			<div class="flex items-center gap-4 mb-12">
+				<span class="section-label">02 / skills</span>
+				<div class="flex-1 h-px" style="background-color: var(--color-border);"></div>
+			</div>
+
+			<div
 				ref="targetRef"
-				class="text-center mb-10 sm:mb-12 md:mb-16 transition-all duration-700"
-				:class="{ 'opacity-0 translate-y-8': !isVisible, 'opacity-100 translate-y-0': isVisible }"
+				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1"
 			>
-				<h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-3 sm:mb-4">
-					Technical <span class="text-gradient">Expertise</span>
-				</h2>
-				<p class="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">Technologies and tools I work with</p>
-
-				<!-- Legend -->
-				<div class="flex items-center justify-center gap-4 sm:gap-6 mt-4 sm:mt-5">
-					<div class="flex items-center gap-1.5 text-xs sm:text-sm text-gray-400">
-						<span class="w-3 h-3 rounded-full bg-primary-500 inline-block"></span>
-						Primary
-					</div>
-					<div class="flex items-center gap-1.5 text-xs sm:text-sm text-gray-400">
-						<span class="w-3 h-3 rounded-full bg-dark-700 border border-gray-600 inline-block"></span>
-						Familiar
-					</div>
-				</div>
-			</header>
-
-			<!-- Skills Grid -->
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 				<article
 					v-for="(skill, index) in skills"
 					:key="skill.category"
-					class="glass p-5 sm:p-6 md:p-8 rounded-2xl hover:bg-white/10 transition-all duration-300 group"
-					:class="{
-						'opacity-0 translate-y-8': !isVisible,
-						'opacity-100 translate-y-0': isVisible,
-					}"
-					:style="{
-						transitionDelay: isVisible ? `${index * 100}ms` : '0ms',
-						transitionDuration: '700ms',
-					}"
+					class="skill-card p-5 sm:p-6 transition-colors"
+					:class="isVisible ? 'is-visible' : ''"
+					:style="{ '--delay': `${index * 60}ms`, 'background-color': 'var(--color-bg)','border': '0.5px solid var(--color-border)' }"
 				>
-					<!-- Category header dengan ikon -->
-					<div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 md:mb-6">
-						<span class="text-lg sm:text-xl" aria-hidden="true">{{ getCategoryIcon(skill.category) }}</span>
+					<!-- Category header -->
+					<div class="flex items-center gap-2 mb-4">
+						<span class="text-base" aria-hidden="true">{{ getCategoryIcon(skill.category) }}</span>
 						<h3
-							class="text-base sm:text-lg md:text-xl font-display font-bold text-primary-400 group-hover:text-primary-300 transition-colors"
+							class="text-xs font-medium uppercase tracking-widest"
+							style="font-family: var(--font-mono); color: var(--color-text-muted);"
 						>
 							{{ skill.category }}
 						</h3>
 					</div>
 
-					<!-- Items dengan pembeda primary vs familiar -->
-					<ul class="flex flex-wrap gap-2" role="list">
+					<!-- Skill tags -->
+					<ul class="flex flex-wrap gap-1.5" role="list">
 						<li v-for="item in skill.items" :key="item.name || item">
-							<!-- Primary skill — lebih menonjol -->
+							<!-- Primary skill -->
 							<span
 								v-if="isPrimary(item.name || item)"
-								class="inline-flex items-center gap-1 px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-default primary-badge"
+								class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium"
+								style="
+									background-color: var(--color-accent-light);
+									border: 1px solid var(--color-accent-border);
+									color: var(--color-accent);
+									font-family: var(--font-mono);
+								"
 							>
-								<span class="w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0"></span>
 								{{ item.name || item }}
 							</span>
-
-							<!-- Familiar skill — lebih subtle -->
+							<!-- Familiar skill -->
 							<span
 								v-else
-								class="inline-block px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 bg-dark-800/80 rounded-lg text-xs sm:text-sm font-medium text-gray-400 hover:text-gray-300 hover:bg-dark-700/80 transition-all cursor-default"
+								class="inline-block px-2.5 py-1 rounded text-xs"
+								style="
+									background-color: var(--color-surface);
+									border: 1px solid var(--color-border);
+									color: var(--color-text-muted);
+									font-family: var(--font-mono);
+								"
 							>
 								{{ item.name || item }}
 							</span>
@@ -78,97 +63,74 @@
 					</ul>
 				</article>
 			</div>
+
+			<!-- Legend -->
+			<div class="flex items-center gap-6 mt-6">
+				<div class="flex items-center gap-2 text-xs" style="color: var(--color-text); font-family: var(--font-mono);">
+					<span class="w-3 h-3 rounded-sm inline-block"
+						style="background-color: var(--color-accent-light); border: 1px solid var(--color-accent-border);"></span>
+					primary
+				</div>
+				<div class="flex items-center gap-2 text-xs" style="color: var(--color-text); font-family: var(--font-mono);">
+					<span class="w-3 h-3 rounded-sm inline-block"
+						style="background-color: var(--color-surface); border: 1px solid var(--color-border);"></span>
+					familiar
+				</div>
+			</div>
+
 		</div>
 	</section>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useIntersectionObserver } from "../composables/Useintersectionobserver";
+import { useIntersectionObserver } from '../composables/Useintersectionobserver';
 
-const props = defineProps({
-	skills: {
-		type: Array,
-		required: true,
-		validator: (value) => value.every((skill) => skill.category && Array.isArray(skill.items) && skill.items.length > 0),
-	},
+defineProps({
+	skills: { type: Array, required: true },
 });
 
-const { isVisible, targetRef } = useIntersectionObserver({
-	threshold: 0.1,
-	rootMargin: "0px 0px -100px 0px",
-});
+const { isVisible, targetRef } = useIntersectionObserver({ threshold: 0.05 });
 
 const primarySkills = [
-	"JavaScript",
-	"TypeScript",
-	"PHP",
-	"Python",
-	"React",
-	"Express.js",
-	"Laravel",
-	"Flutter",
-	"Tailwind CSS",
-	"PostgreSQL",
-	"MySQL",
-	"Redis",
-	"Git",
-	"Docker",
-	"Numpy",
-	"Pandas",
+	'JavaScript', 'TypeScript', 'PHP', 'Python',
+	'React', 'Express.js', 'Laravel', 'Flutter',
+	'Tailwind CSS', 'PostgreSQL', 'MySQL', 'Redis',
+	'Git', 'Docker', 'Numpy', 'Pandas',
 ];
 
 const isPrimary = (name) => primarySkills.includes(name);
 
 const getCategoryIcon = (category) => {
 	const icons = {
-		Languages: "📝",
-		Frontend: "🎨",
-		Backend: "⚙️",
-		Database: "🗄️",
-		DevOps: "🛠️",
-		Mobile: "📱",
-		Data: "📊",
-		Tools: "🔧",
+		Languages: '{ }',
+		Frontend:  '◧',
+		Backend:   '⚙',
+		Database:  '▤',
+		DevOps:    '⬡',
+		Mobile:    '▭',
+		Data:      '◈',
+		Tools:     '⌘',
 	};
-	return icons[category] || "💡";
+	return icons[category] || '·';
 };
-
-const skillsCount = computed(() => props.skills.length);
 </script>
 
 <style scoped>
-/* Primary skill badge */
-.primary-badge {
-	background: rgba(99, 179, 237, 0.15);
-	border: 1px solid rgba(99, 179, 237, 0.3);
-	color: #90cdf4;
-}
-
-.primary-badge:hover {
-	background: rgba(99, 179, 237, 0.25);
-	border-color: rgba(99, 179, 237, 0.5);
-	transform: scale(1.05);
-}
-
-.opacity-0 {
+.skill-card {
 	opacity: 0;
+	transform: translateY(10px);
+	transition: opacity 0.4s ease var(--delay, 0ms), transform 0.4s ease var(--delay, 0ms),
+		background-color 0.2s;
 }
-.opacity-100 {
+.skill-card.is-visible {
 	opacity: 1;
-}
-.translate-y-8 {
-	transform: translateY(2rem);
-}
-.translate-y-0 {
 	transform: translateY(0);
+}
+.skill-card:hover {
+	background-color: var(--color-surface) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	* {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-	}
+	.skill-card { transition: none; opacity: 1; transform: none; }
 }
 </style>
