@@ -8,23 +8,29 @@
 				<div class="flex-1 h-px" style="background-color: var(--color-border);"></div>
 			</div>
 
+			<!-- Grid: border per-card agar sel kosong tidak kelihatan -->
 			<div
 				ref="targetRef"
-				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1"
+				class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+				style="border-top: 1px solid var(--color-border); border-left: 1px solid var(--color-border);"
 			>
 				<article
 					v-for="(skill, index) in skills"
 					:key="skill.category"
-					class="skill-card p-5 sm:p-6 transition-colors"
+					class="skill-card p-5 sm:p-6"
 					:class="isVisible ? 'is-visible' : ''"
-					:style="{ '--delay': `${index * 60}ms`, 'background-color': 'var(--color-bg)','border': '0.5px solid var(--color-border)' }"
+					:style="{ '--delay': `${index * 60}ms` }"
 				>
 					<!-- Category header -->
 					<div class="flex items-center gap-2 mb-4">
-						<span class="text-base" aria-hidden="true">{{ getCategoryIcon(skill.category) }}</span>
+						<span
+							class="text-sm shrink-0"
+							aria-hidden="true"
+							style="color: var(--color-text-subtle);"
+						>{{ getCategoryIcon(skill.category) }}</span>
 						<h3
 							class="text-xs font-medium uppercase tracking-widest"
-							style="font-family: var(--font-mono); color: var(--color-text-muted);"
+							style="font-family: var(--font-mono); color: var(--color-text-subtle);"
 						>
 							{{ skill.category }}
 						</h3>
@@ -36,7 +42,7 @@
 							<!-- Primary skill -->
 							<span
 								v-if="isPrimary(item.name || item)"
-								class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium"
+								class="inline-flex items-center px-2.5 py-1 rounded text-xs font-medium"
 								style="
 									background-color: var(--color-accent-light);
 									border: 1px solid var(--color-accent-border);
@@ -46,12 +52,12 @@
 							>
 								{{ item.name || item }}
 							</span>
-							<!-- Familiar skill -->
+							<!-- Familiar skill — transparent, border only -->
 							<span
 								v-else
 								class="inline-block px-2.5 py-1 rounded text-xs"
 								style="
-									background-color: var(--color-surface);
+									background-color: transparent;
 									border: 1px solid var(--color-border);
 									color: var(--color-text-muted);
 									font-family: var(--font-mono);
@@ -65,15 +71,19 @@
 			</div>
 
 			<!-- Legend -->
-			<div class="flex items-center gap-6 mt-6">
-				<div class="flex items-center gap-2 text-xs" style="color: var(--color-text); font-family: var(--font-mono);">
-					<span class="w-3 h-3 rounded-sm inline-block"
-						style="background-color: var(--color-accent-light); border: 1px solid var(--color-accent-border);"></span>
+			<div class="flex items-center gap-6 mt-5">
+				<div class="flex items-center gap-2 text-xs" style="color: var(--color-text-muted); font-family: var(--font-mono);">
+					<span
+						class="w-3 h-3 rounded-sm inline-block"
+						style="background-color: var(--color-accent-light); border: 1px solid var(--color-accent-border);"
+					></span>
 					primary
 				</div>
-				<div class="flex items-center gap-2 text-xs" style="color: var(--color-text); font-family: var(--font-mono);">
-					<span class="w-3 h-3 rounded-sm inline-block"
-						style="background-color: var(--color-surface); border: 1px solid var(--color-border);"></span>
+				<div class="flex items-center gap-2 text-xs" style="color: var(--color-text-muted); font-family: var(--font-mono);">
+					<span
+						class="w-3 h-3 rounded-sm inline-block"
+						style="border: 1px solid var(--color-border);"
+					></span>
 					familiar
 				</div>
 			</div>
@@ -102,14 +112,15 @@ const isPrimary = (name) => primarySkills.includes(name);
 
 const getCategoryIcon = (category) => {
 	const icons = {
-		Languages: '{ }',
-		Frontend:  '◧',
-		Backend:   '⚙',
-		Database:  '▤',
-		DevOps:    '⬡',
-		Mobile:    '▭',
-		Data:      '◈',
-		Tools:     '⌘',
+		Languages:        '{ }',
+		Frontend:         '◧',
+		Backend:          '⚙',
+		Database:         '▤',
+		DevOps:           '⬡',
+		Mobile:           '▭',
+		Data:             '◈',
+		Tools:            '⌘',
+		'Also worked with': '·',
 	};
 	return icons[category] || '·';
 };
@@ -117,17 +128,23 @@ const getCategoryIcon = (category) => {
 
 <style scoped>
 .skill-card {
+	background-color: var(--color-bg);
+	/* Border kanan + bawah per card → membentuk grid line tanpa background trick */
+	border-right:  1px solid var(--color-border);
+	border-bottom: 1px solid var(--color-border);
 	opacity: 0;
 	transform: translateY(10px);
-	transition: opacity 0.4s ease var(--delay, 0ms), transform 0.4s ease var(--delay, 0ms),
-		background-color 0.2s;
+	transition:
+		opacity  0.4s ease var(--delay, 0ms),
+		transform 0.4s ease var(--delay, 0ms),
+		background-color 0.15s ease;
 }
 .skill-card.is-visible {
 	opacity: 1;
 	transform: translateY(0);
 }
 .skill-card:hover {
-	background-color: var(--color-surface) !important;
+	background-color: var(--color-surface);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -8,14 +8,18 @@
 				<div class="flex-1 h-px" style="background-color: var(--color-border);"></div>
 			</div>
 
-			<!-- Grid -->
-			<div ref="targetRef" class="grid grid-cols-1 sm:grid-cols-2 gap-1">
+			<!-- Grid: border per-card agar sel kosong tidak kelihatan -->
+			<div
+				ref="targetRef"
+				class="grid grid-cols-1 sm:grid-cols-2"
+				style="border-top: 1px solid var(--color-border); border-left: 1px solid var(--color-border);"
+			>
 				<article
 					v-for="(project, index) in projects"
 					:key="project.id || project.title"
 					class="proj-card flex flex-col"
 					:class="isVisible ? 'is-visible' : ''"
-					:style="{ '--delay': `${index * 80}ms`, 'background-color': 'var(--color-bg)', 'border': '0.5px solid var(--color-border)' }"
+					:style="{ '--delay': `${index * 80}ms` }"
 				>
 					<!-- Project image / fallback -->
 					<div class="relative h-44 sm:h-52 overflow-hidden" style="border-bottom: 1px solid var(--color-border);">
@@ -26,7 +30,7 @@
 							class="w-full h-full object-cover proj-img"
 							loading="lazy"
 						/>
-						<!-- Fallback: minimal pattern + label -->
+						<!-- Fallback — dark tinted + stripe, NO grey -->
 						<div
 							v-else
 							class="absolute inset-0 flex flex-col items-end justify-end p-4"
@@ -34,10 +38,10 @@
 						>
 							<div class="fallback-pattern absolute inset-0" aria-hidden="true"></div>
 							<span
-								class="relative text-xs px-2 py-1 rounded"
+								class="relative text-xs px-2 py-0.5 rounded"
 								style="
-									background-color: var(--color-bg);
-									color: var(--color-text-muted);
+									border: 1px solid var(--color-border);
+									color: var(--color-text-subtle);
 									font-family: var(--font-mono);
 								"
 							>
@@ -49,7 +53,7 @@
 						<div
 							v-if="project.link || project.github"
 							class="proj-overlay absolute inset-0 flex items-center justify-center gap-3"
-							style="background-color: rgba(17,16,16,0.88);"
+							style="background-color: rgba(17,16,16,0.9);"
 						>
 							<a
 								v-if="project.link"
@@ -60,7 +64,8 @@
 								@click.stop
 							>
 								<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
 								</svg>
 								Live
 							</a>
@@ -81,15 +86,13 @@
 					</div>
 
 					<!-- Project info -->
-					<div class="flex flex-col flex-1 p-5 sm:p-6 hover-surface transition-colors">
-						<div class="flex items-start justify-between gap-3 mb-2">
-							<h3
-								class="text-base sm:text-lg font-bold"
-								style="font-family: var(--font-display);"
-							>
-								{{ project.title }}
-							</h3>
-						</div>
+					<div class="proj-body flex flex-col flex-1 p-5 sm:p-6 transition-colors">
+						<h3
+							class="text-base sm:text-lg font-bold mb-2"
+							style="font-family: var(--font-display); color: var(--color-text);"
+						>
+							{{ project.title }}
+						</h3>
 
 						<p
 							class="text-sm leading-relaxed flex-1 mb-4"
@@ -109,16 +112,16 @@
 							{{ expandedProjects[index] ? '↑ less' : '↓ more' }}
 						</button>
 
-						<!-- Tech tags -->
+						<!-- Tech tags — transparent bg, border only -->
 						<div v-if="project.tech?.length" class="flex flex-wrap gap-1.5 mt-auto">
 							<span
 								v-for="tech in project.tech"
 								:key="tech"
 								class="text-xs px-2 py-0.5 rounded"
 								style="
-									background-color: var(--color-surface);
+									background-color: transparent;
 									border: 1px solid var(--color-border);
-									color: var(--color-text-subtle);
+									color: var(--color-text-muted);
 									font-family: var(--font-mono);
 								"
 							>
@@ -160,17 +163,19 @@ const checkAll = async () => {
 const toggleDesc = (i) => { expandedProjects[i] = !expandedProjects[i]; };
 
 const getFallbackStyle = (category) => {
+	// Very dark tinted backgrounds — NOT grey, each slightly tinted per category
 	const palettes = {
-		Web:       '#1A1410',
-		Mobile:    '#10141A',
-		Backend:   '#101A12',
-		Data:      '#0F1018',
-		AI:        '#140F1A',
-		DevOps:    '#14130F',
-		Frontend:  '#0F1814',
-		Fullstack: '#1A0F0F',
+		Web:             '#0C1014',
+		'Web/Mobile':    '#0C1012',
+		Mobile:          '#0C0E14',
+		Backend:         '#0C1410',
+		Data:            '#0A0C14',
+		AI:              '#100C14',
+		DevOps:          '#121210',
+		Frontend:        '#0C1410',
+		Fullstack:       '#14100C',
 	};
-	return { backgroundColor: palettes[category] || '#141414' };
+	return { backgroundColor: palettes[category] || '#0D0D0D' };
 };
 
 let resizeTimeout;
@@ -187,14 +192,22 @@ watch(isVisible, (v) => { if (v) checkAll(); });
 
 <style scoped>
 .proj-card {
+	background-color: var(--color-bg);
+	/* Border kanan + bawah → grid line tanpa background trick */
+	border-right:  1px solid var(--color-border);
+	border-bottom: 1px solid var(--color-border);
 	opacity: 0;
 	transform: translateY(12px);
-	transition: opacity 0.4s ease var(--delay, 0ms), transform 0.4s ease var(--delay, 0ms);
+	transition:
+		opacity  0.4s ease var(--delay, 0ms),
+		transform 0.4s ease var(--delay, 0ms);
 }
 .proj-card.is-visible { opacity: 1; transform: translateY(0); }
-.proj-card:hover .proj-img { transform: scale(1.04); }
+
+.proj-body:hover { background-color: var(--color-surface); }
 
 .proj-img { transition: transform 0.4s ease; }
+.proj-card:hover .proj-img { transform: scale(1.04); }
 
 .proj-overlay {
 	opacity: 0;
@@ -202,15 +215,14 @@ watch(isVisible, (v) => { if (v) checkAll(); });
 }
 .proj-card:hover .proj-overlay { opacity: 1; }
 
-.hover-surface:hover { background-color: var(--color-surface); }
-
+/* Sangat halus — bukan kotak abu, hanya tekstur diagonal tipis */
 .fallback-pattern {
 	background-image: repeating-linear-gradient(
-		45deg,
+		-45deg,
 		transparent,
-		transparent 18px,
-		rgba(255,255,255,0.025) 18px,
-		rgba(255,255,255,0.025) 19px
+		transparent 22px,
+		rgba(255, 255, 255, 0.015) 22px,
+		rgba(255, 255, 255, 0.015) 23px
 	);
 }
 

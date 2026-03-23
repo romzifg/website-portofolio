@@ -15,10 +15,10 @@
     --color-border: #2C2C2C;
     --color-border-subtle: #1E1E1E;
 
-    /* Text */
-    --color-text: #F0EEE8;
-    --color-text-muted: #8A8580;
-    --color-text-subtle: #555250;
+    /* Text — bumped for clear readability on dark bg */
+    --color-text: #F2F0EA;
+    --color-text-muted: #C4BFB8;
+    --color-text-subtle: #7A7672;
 
     /* Accent — warm orange, confident, not generic blue */
     --color-accent: #E5622A;
@@ -72,7 +72,6 @@ h1, h2, h3, h4, h5, h6 {
    UTILITY CLASSES
    ===================== */
 
-/* Solid surface card — replaces glassmorphism */
 .card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -83,23 +82,16 @@ h1, h2, h3, h4, h5, h6 {
     border-color: var(--color-surface-3);
 }
 
-/* Accent text */
-.text-accent {
-    color: var(--color-accent);
-}
+.text-accent { color: var(--color-accent); }
 
-/* Mono label */
-.mono {
-    font-family: var(--font-mono);
-}
+.mono { font-family: var(--font-mono); }
 
-/* Thin horizontal rule */
 .h-rule {
     border: none;
     border-top: 1px solid var(--color-border);
 }
 
-/* Section label — small all-caps mono tag */
+/* Section label */
 .section-label {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -116,9 +108,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     transition: background-color 0.2s;
 }
-.btn-accent:hover {
-    background-color: var(--color-accent-hover);
-}
+.btn-accent:hover { background-color: var(--color-accent-hover); }
 
 /* Ghost button */
 .btn-ghost {
@@ -134,9 +124,9 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-accent);
 }
 
-/* Keep glass for Navbar scroll effect only */
+/* Navbar scroll */
 .glass {
-    background-color: rgba(17, 16, 16, 0.92);
+    background-color: rgba(17, 16, 16, 0.93);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
 }
